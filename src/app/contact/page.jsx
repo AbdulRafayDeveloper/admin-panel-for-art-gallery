@@ -16,7 +16,7 @@ const MapContainer = () => {
     message: '',
   });
   const [errors, setErrors] = useState({});
-  const apiKey = 'AIzaSyB5epiSWC9Z6HiRNpuzfq_mEXNrBZ7r05I'; // Replace with your Google Maps API key
+  const apiKey = ''; // Replace with your Google Maps API key
   const address = 'Dzone Technologies,C3XX+85C, Ashrafabad, Faisalabad'; // Replace with the desired location
 
   useEffect(() => {
