@@ -31,19 +31,19 @@ function Footer() {
 						<h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Services</h2>
 						<ul className="text-gray-500 dark:text-gray-400 font-medium">
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Web Technologies</Link>
+								<Link href="/services/web" className="hover:text-indigo-500">Web Technologies</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Mobile Technologies</Link>
+								<Link href='/services/mob' className="hover:text-indigo-500">Mobile Technologies</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">AI Technologies</Link>
+								<Link href='/services/ai' className="hover:text-indigo-500">AI Technologies</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Cloud Technologies</Link>
+								<Link href='/services/cloud' className="hover:text-indigo-500">Cloud Technologies</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">SEO</Link>
+								<Link href='/services/seo' className="hover:text-indigo-500">SEO</Link>
 							</li>
 						</ul>
 					</div>
@@ -51,13 +51,16 @@ function Footer() {
 						<h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Insight</h2>
 						<ul className="text-gray-500 dark:text-gray-400 font-medium">
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Blogs</Link>
+								<Link href="/../portfolio/" className="hover:text-indigo-500">Portfolio</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">FAQs</Link>
+								<Link href="/../blogs/" className="hover:text-indigo-500">Blogs</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Terms of Services</Link>
+								<Link href="/../faq/" className="hover:text-indigo-500">FAQs</Link>
+							</li>
+							<li className="mb-4">
+								<Link href="/../terms/" className="hover:text-indigo-500">Terms of Services</Link>
 							</li>
 						</ul>
 					</div>
@@ -65,13 +68,10 @@ function Footer() {
 						<h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Quick Links</h2>
 						<ul className="text-gray-500 dark:text-gray-400 font-medium">
 							<li className="mb-4">
-								<Link href="#about" className="hover:text-indigo-500">Who we are</Link>
+								<Link href="/../career/" className="hover:text-indigo-500">Career</Link>
 							</li>
 							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Career</Link>
-							</li>
-							<li className="mb-4">
-								<Link href="#" className="hover:text-indigo-500">Contact</Link>
+								<Link href="/../contact/" className="hover:text-indigo-500">Contact</Link>
 							</li>
 						</ul>
 					</div>

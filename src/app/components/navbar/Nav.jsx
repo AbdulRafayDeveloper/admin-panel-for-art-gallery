@@ -44,7 +44,7 @@ const Nav = () => {
     <nav className={`sticky top-0 z-10 text-white bg-white bg-opacity-10 transition-all duration-300 ease-in-out ${isNavVisible ? 'opacity-100' : 'opacity-0 -translate-y-full'}`}>
       <div className="max-w-7xl mx-auto px-4 bg-none">
         <div className="flex items-center justify-between h-16 bg-none relative">
-          <NavItem label="DevWays" url="/" />
+          <NavItem label="DevWays" url="/../home/" />
           <div className="hidden md:flex space-x-8">
             <NavItem label="Home" url="/../home/" />
             <DropdownMenu label="Services" items={servicesItems} />
@@ -143,12 +143,7 @@ const DropdownMenu = ({ label, items, closeMenu }) => {
             <div className="mt-4 text-center">
               {label === 'Services' && (
                 <div className="mt-4">
-                  <Link href="/technologies" className="flex items-center justify-center text-orange-400 hover:text-orange-800">
-                    Explore Technologies
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
+                  
                 </div>
               )}
               {label === 'Insight' && (
@@ -177,7 +172,8 @@ const servicesItems = [
   { label: 'SEO Services', url: '/services/seo' },
 ];
 const insightItems = [
-  { label: 'Blogs', url: '/blogs' },
+  { label: 'Portfolio', url: '/../portfolio/' },
+  { label: 'Blogs', url: '/../blogs/' },
   { label: 'FAQs', url: '/../faq/' },
   { label: 'Terms of Service', url: '/../terms/' },
   { label: 'Our Team', url: '/../team/' }
