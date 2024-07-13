@@ -3,23 +3,34 @@ import Link from 'next/link';
 
 const Nav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isNavVisible, setIsNavVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isNavVisible, setIsNavVisible] = useState(true); // Track if nav should be visible
+  const [isNavScrolled, setIsNavScrolled] = useState(false);
+  const [selectedNavItem, setSelectedNavItem] = useState(null); // Track selected nav item
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Hide nav when scrolling down, show when scrolling up
+      setIsNavVisible(scrollPosition <= 0 || scrollPosition < prevScrollPos);
+      setIsNavScrolled(scrollPosition > 50); // Adjust 50 as needed for your design
+
+      // Close mobile menu on scroll down
+      if (scrollPosition > 0 && scrollPosition > prevScrollPos) {
+        setIsMobileMenuOpen(false);
+      }
+
+      prevScrollPos = scrollPosition;
+    };
+
+    let prevScrollPos = 0;
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setIsNavVisible(prevScrollPos > currentScrollPos || currentScrollPos < 100);
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos]);
 
   // Function to close mobile menu on item click or outside click
   const closeMobileMenu = () => {
@@ -40,18 +51,23 @@ const Nav = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Function to handle selecting a nav item
+  const handleNavItemSelect = (label) => {
+    setSelectedNavItem(label);
+  };
+
   return (
-    <nav className={`sticky top-0 z-10 text-white bg-white bg-opacity-10 transition-all duration-300 ease-in-out ${isNavVisible ? 'opacity-100' : 'opacity-0 -translate-y-full'}`}>
+    <nav className={`sticky top-0 z-10 transition-all duration-300 ease-in-out ${isNavScrolled ? 'bg-white text-gray-900 font-medium shadow-md' : 'bg-transparent text-white bg-opacity-10'}`} style={{ visibility: isNavVisible ? 'visible' : 'hidden', opacity: isNavVisible ? 1 : 0 }}>
       <div className="max-w-7xl mx-auto px-4 bg-none">
-        <div className="flex items-center justify-between h-16 bg-none relative">
-          <NavItem label="DevWays" url="/../home/" />
+        <div className="flex items-center justify-between h-16 bg-none relative ">
+          <NavItem label="DevWays" url="/" isSelected={selectedNavItem === "DevWays"} onSelect={handleNavItemSelect} />
           <div className="hidden md:flex space-x-8">
-            <NavItem label="Home" url="/../home/" />
-            <DropdownMenu label="Services" items={servicesItems} />
-            <DropdownMenu label="Insight" items={insightItems} />
-            <NavItem label="Career" url="/../career/" />
-            <NavItem label="Contact" url="/../contact/" />
-            <NavItem label="Request a Quote" url="/../quote/" />
+            <NavItem label="Home" url="/" isSelected={selectedNavItem === "Home"} onSelect={handleNavItemSelect} />
+            <DropdownMenu label="Services" items={servicesItems} isSelected={selectedNavItem === "Services"} onSelect={handleNavItemSelect} />
+            <DropdownMenu label="Insight" items={insightItems} isSelected={selectedNavItem === "Insight"} onSelect={handleNavItemSelect} />
+            <NavItem label="Career" url="/../career/" isSelected={selectedNavItem === "Career"} onSelect={handleNavItemSelect} />
+            <NavItem label="Contact" url="/../contact/" isSelected={selectedNavItem === "Contact"} onSelect={handleNavItemSelect} />
+            <NavItem label="Request a Quote" url="/../quote/" isSelected={selectedNavItem === "Request a Quote"} onSelect={handleNavItemSelect} />
           </div>
           <div className="md:hidden">
             <button className="text-white focus:outline-none" onClick={toggleMobileMenu}>
@@ -73,12 +89,12 @@ const Nav = () => {
                 </svg>
               </button>
             </div>
-            <NavItem label="Home" url="/../home/" onClick={closeMobileMenu} />
-            <DropdownMenu label="Services" items={servicesItems} closeMenu={closeMobileMenu} />
-            <DropdownMenu label="Insight" items={insightItems} closeMenu={closeMobileMenu} />
-            <NavItem label="Career" url="/../career/" onClick={closeMobileMenu} />
-            <NavItem label="Contact" url="/../contact/" onClick={closeMobileMenu} />
-            <NavItem label="Request a Quote" url="/../quote/" onClick={closeMobileMenu} />
+            <NavItem label="Home" url="/../home/" isSelected={selectedNavItem === "Home"} onSelect={handleNavItemSelect} />
+            <DropdownMenu label="Services" items={servicesItems} isSelected={selectedNavItem === "Services"} onSelect={handleNavItemSelect} closeMenu={closeMobileMenu} />
+            <DropdownMenu label="Insight" items={insightItems} isSelected={selectedNavItem === "Insight"} onSelect={handleNavItemSelect} closeMenu={closeMobileMenu} />
+            <NavItem label="Career" url="/../career/" isSelected={selectedNavItem === "Career"} onSelect={handleNavItemSelect} />
+            <NavItem label="Contact" url="/../contact/" isSelected={selectedNavItem === "Contact"} onSelect={handleNavItemSelect} />
+            <NavItem label="Request a Quote" url="/../quote/" isSelected={selectedNavItem === "Request a Quote"} onSelect={handleNavItemSelect} />
           </div>
         </div>      
       )}
@@ -86,15 +102,16 @@ const Nav = () => {
   );
 };
 
-const NavItem = ({ label, url, onClick }) => (
+const NavItem = ({ label, url, isSelected, onSelect, isNavScrolled }) => (
   <Link href={url}>
-    <div className="text-lg font-light hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2" onClick={onClick}>
+    <div className={`text-lg font-medium hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-black' : ""}`} onClick={() => onSelect(label)}>
       {label}
     </div>
   </Link>
 );
 
-const DropdownMenu = ({ label, items, closeMenu }) => {
+
+const DropdownMenu = ({ label, items, isSelected, onSelect, closeMenu,isNavScrolled }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -117,21 +134,14 @@ const DropdownMenu = ({ label, items, closeMenu }) => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <div onClick={toggleDropdown} className="text-lg font-light
-       text-white flex items-center justify-between hover:text-indigo-500 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2">
+      <div onClick={toggleDropdown} className={`text-lg font-medium flex items-center justify-between hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-black' : ""}`}>
         {label}{' '}
-        <svg
-          className={`w-4 h-4 inline-block transform ${isOpen ? 'rotate-0' : '-rotate-90'}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg className={`w-4 h-4 inline-block transform ${isOpen ? 'rotate-0' : '-rotate-90'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
         </svg>
       </div>
       {isOpen && (
-        <div className="fixed inset-0 bg-white bg-opacity-90 flex flex-row z-20 mt-16">
+        <div className="fixed inset-0 bg-white bg-opacity-90 flex flex-row z-20 mt-16 text-black">
           <div className="flex-1 bg-gray-200 p-4 flex flex-col items-center justify-center">
             <h1 className='text-2xl text-black font-semibold '>{label}</h1>
             {label === 'Services' && (
@@ -154,7 +164,7 @@ const DropdownMenu = ({ label, items, closeMenu }) => {
           <div className="flex-1 flex flex-col justify-center p-10 text-gray-900">
             {/* Navigation items for the right column */}
             {items.map((item, index) => (
-              <NavItem key={index} label={item.label} url={item.url} onClick={closeMenu} />
+              <NavItem key={index} label={item.label} url={item.url} isSelected={isSelected} onSelect={onSelect} onClick={closeMenu} />
             ))}
           </div>
         </div>       
