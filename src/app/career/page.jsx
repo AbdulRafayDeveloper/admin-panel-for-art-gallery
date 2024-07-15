@@ -32,7 +32,7 @@ function JobApplicationForm({ jobTitle, onClose }) {
   }, []);
 
   return (
-    <div className="p-4 border-2 border-gray-200 bg-gray-300 rounded-lg text-gray-700">
+    <div className="p-4 border-2 border-gray-200 bg-white shadow-lg rounded-lg text-gray-700">
       <h2 className="text-xl font-semibold mb-4">{jobTitle} Application</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -127,7 +127,7 @@ function Page() {
   };
 
   return (
-    <div>
+    <div className='bg-black'>
       <Nav />
       <section className="bg-gray-200">
         {/* Sidebar Toggle Button */}

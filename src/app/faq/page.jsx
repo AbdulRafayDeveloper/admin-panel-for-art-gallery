@@ -44,9 +44,9 @@ const Sidebar = () => {
   };
 
   return (
-    <>
+    <div className='bg-black'>
       <Nav />
-      <div className="flex bg-white min-h-screen">
+      <div className="flex min-h-screen bg-white">
         {/* Sidebar */}
         <div className="fixed top-0 left-0 h-full bg-white p-4 border-r shadow-lg pt-12 pr-12 rounded-lg mt-[65px]">
           <ul>
@@ -275,7 +275,7 @@ const Sidebar = () => {
       <div className="relative">
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

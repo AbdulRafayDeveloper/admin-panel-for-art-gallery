@@ -17,7 +17,7 @@ const MapContainer = () => {
     message: '',
   });
   const [errors, setErrors] = useState({});
-  const apiKey = ''; // Replace with your Google Maps API key
+  const apiKey = 'AIzaSyB5epiSWC9Z6HiRNpuzfq_mEXNrBZ7r05I'; // Replace with your Google Maps API key
   const address = 'Dzone Technologies,C3XX+85C, Ashrafabad, Faisalabad'; // Replace with the desired location
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const MapContainer = () => {
 
   if (loading) {
     return (
-      <div className="h-screen flex justify-center items-center bg-white dark:bg-gray-600">
+      <div className="h-screen flex justify-center items-center bg-gray-600">
         {/* Loading spinner or indicator */}
         <div className="flex space-x-2 justify-center items-center">
           <span className="sr-only">Loading...</span>
@@ -79,7 +79,7 @@ const MapContainer = () => {
   }
 
   return (
-    <div>
+    <div className='bg-black'>
       <Nav />
       <div className="h-screen">
         {/* Replace YOUR_API_KEY with your actual API key */}
@@ -93,7 +93,7 @@ const MapContainer = () => {
         />
       </div>
 
-      <section className="bg-white dark:bg-gray-600 min-h-screen flex flex-col md:flex-row justify-center items-center">
+      <section className="bg-white min-h-screen flex flex-col md:flex-row justify-center items-center">
         <div className="md:w-1/2 p-8 md:pl-16">
           <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
             <h1 className="text-3xl text-gray-900 dark:text-white mb-4">Please fill the form</h1>
@@ -103,7 +103,7 @@ const MapContainer = () => {
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Your name*"
                   required
                 />
@@ -114,7 +114,7 @@ const MapContainer = () => {
                   id="city"
                   value={formData.city}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.city ? 'border-red-500' : 'border-gray-300'}  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="City*"
                   required
                 />
@@ -126,7 +126,7 @@ const MapContainer = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-gray-300'}  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Email*"
                   required
                 />
@@ -138,7 +138,7 @@ const MapContainer = () => {
                   id="number"
                   value={formData.number}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.number ? 'border-red-500' : 'border-gray-300'}  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Contact no.*"/>
             </div>
             <div className="mb-4">
@@ -146,7 +146,7 @@ const MapContainer = () => {
                     id="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className={`bg-gray-50 border ${errors.message ? 'border-red-500' : 'border-gray-300'}  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                    className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                     cols={4}
                     rows={5}
                     placeholder="Please tell us a bit about what you are looking for*"

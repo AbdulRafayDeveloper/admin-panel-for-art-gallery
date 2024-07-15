@@ -30,7 +30,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <>
+    <div className='bg-black'>
       <Nav />
       <div className="flex bg-white min-h-screen">
         {/* Sidebar */}
@@ -139,7 +139,7 @@ const Sidebar = () => {
       <div className="relative">
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

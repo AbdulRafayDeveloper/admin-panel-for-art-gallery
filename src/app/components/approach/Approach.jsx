@@ -36,8 +36,8 @@ function Approach() {
 					</div>
 					</div>
 					<div>
-					<h6 className="mb-2 font-semibold leading-5">Client-Centric Methodology</h6>
-					<p className="mb-3 text-sm text-gray-900">
+					<h6 className="mb-2 font-semibold leading-5 text-white">Client-Centric Methodology</h6>
+					<p className="mb-3 text-sm text-white">
 						We prioritize understanding your business goals and requirements to deliver tailored solutions that drive results.
 					</p>
 					<ul className="mb-4 -ml-1 space-y-2">
@@ -47,7 +47,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Understanding Requirements
+						<span className='text-white'>Understanding Requirements</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -55,7 +55,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Collaborative Planning
+						<span className='text-white'>Collaborative Planning</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -63,7 +63,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Iterative Feedback
+						<span className='text-white'> Iterative Feedback</span>
 						</li>
 					</ul>
 					</div>
@@ -78,8 +78,8 @@ function Approach() {
 					</div>
 					</div>
 					<div>
-					<h6 className="mb-2 font-semibold leading-5">Agile Development Process</h6>
-					<p className="mb-3 text-sm text-gray-900">
+					<h6 className="mb-2 font-semibold leading-5 text-white">Agile Development Process</h6>
+					<p className="mb-3 text-sm  text-white">
 						Our agile development process ensures flexibility and rapid iteration, allowing us to adapt to changes quickly and deliver robust solutions.
 					</p>
 					<ul className="mb-4 -ml-1 space-y-2">
@@ -89,7 +89,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Sprint Planning
+						<span className='text-white'>Sprint Planning</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -97,7 +97,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Daily Stand-Ups
+						<span className='text-white'>Daily Stand-Ups</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -105,7 +105,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Sprint Reviews
+						<span className='text-white'>Sprint Reviews</span>
 						</li>
 					</ul>
 					</div>
@@ -120,8 +120,8 @@ function Approach() {
 					</div>
 					</div>
 					<div>
-					<h6 className="mb-2 font-semibold leading-5">Quality Assurance</h6>
-					<p className="mb-3 text-sm text-gray-900">
+					<h6 className="mb-2 font-semibold leading-5 text-white">Quality Assurance</h6>
+					<p className="mb-3 text-sm text-white">
 						We implement rigorous testing and quality assurance processes to ensure that our solutions are reliable, secure, and performant.
 					</p>
 					<ul className="mb-4 -ml-1 space-y-2">
@@ -131,7 +131,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Automated Testing
+						<span className='text-white'>Automated Testing</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -139,7 +139,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						Manual Testing
+						<span className='text-white'>Manual Testing</span>
 						</li>
 						<li className="flex items-start">
 						<span className="mr-1">
@@ -147,7 +147,7 @@ function Approach() {
 							<polygon strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
 							</svg>
 						</span>
-						User Acceptance Testing (UAT)
+						<span className='text-white'>User Acceptance Testing (UAT)</span>
 						</li>
 					</ul>
 					</div>

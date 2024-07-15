@@ -13,9 +13,9 @@ function page() {
 
 		<div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
 
-		<h2 className="font-bold text-xl leading-[1.1] sm:text-3xl md:text-4xl">Technologies We Use</h2>
+		<h2 className="font-bold text-xl leading-[1.1] sm:text-3xl md:text-4xl text-white">Technologies We Use</h2>
 
-		<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+		<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-white">
 			We specialize in famous Libraries like Keras, Tensorflow and applications like  PowerBI, Tableau and more. This enables us to create dynamic, scalable, and high-performance applications tailored to meet your business needs.
 		</p>
 

@@ -13,9 +13,9 @@ function page() {
 
 		<div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
 
-		<h2 className="font-bold text-xl leading-[1.1] sm:text-3xl md:text-4xl">Technologies We Use</h2>
+		<h2 className="font-bold text-xl leading-[1.1] sm:text-3xl md:text-4xl text-white">Technologies We Use</h2>
 
-		<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+		<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-white">
 			We specialize in leveraging industry-leading cloud platforms such as IBM, Azure, Google Cloud, and AWS to deliver robust and scalable AI solutions
 		</p>
 

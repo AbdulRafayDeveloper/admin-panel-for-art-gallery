@@ -75,7 +75,7 @@ const List = ({ servicesList }) => {
         >
           <div className="relative w-full h-full">
             <div className="relative px-8 py-12 text-center transform hover:scale-105 transition-transform duration-500 z-20">
-              <p className="font-light text-white flex justify-start items-start ml-[15.9px]">OUR SERVICES</p>
+              <p className="font-light text-white flex justify-start items-start ml-[15.9px] pl-4">OUR SERVICES</p>
 
               <h2
                 ref={textRef}
