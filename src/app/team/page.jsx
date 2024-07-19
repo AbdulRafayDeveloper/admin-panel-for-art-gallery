@@ -18,30 +18,31 @@ function Page() {
     { src: '/assets/pictures/team5.jpg', alt: 'Image 5' },
     // Add more images as needed
   ];
-
+  
   // Team slider
   const scrollRef = useRef(null);
-
-    const scrollLeft = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollBy({
-                left: -scrollRef.current.offsetWidth, // Scroll one container width left
-                behavior: 'smooth'
-            });
-        }
-    };
-
-    const scrollRight = () => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollBy({
-                left: scrollRef.current.offsetWidth, // Scroll one container width right
-                behavior: 'smooth'
-            });
-        }
-    };
- // The animation for aside text
+  
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -scrollRef.current.offsetWidth, // Scroll one container width left
+        behavior: 'smooth'
+      });
+    }
+  };
+  
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: scrollRef.current.offsetWidth, // Scroll one container width right
+        behavior: 'smooth'
+      });
+    }
+  };
+  
+  // The animation for aside text
   const textRef = useRef(null);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
@@ -50,29 +51,29 @@ function Page() {
         textRef.current.style.backgroundPosition = `${gradientPosition}% 0%`;
       }
     };
-
+  
     window.addEventListener('scroll', handleScroll);
-
+  
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  //
+  
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
+  
   const gridRef = useRef(null);
   const [isScrolling, setIsScrolling] = useState(false);
-
+  
   useEffect(() => {
     const gridElement = gridRef.current;
     let scrollTimeout;
-
+  
     const handleScroll = () => {
-      if (isScrolling) {
+      if (isScrolling && gridElement) {
         const maxScrollTop = gridElement.scrollHeight - gridElement.clientHeight;
         if (gridElement.scrollTop >= maxScrollTop) {
           setIsScrolling(false);
@@ -81,24 +82,26 @@ function Page() {
         }
       }
     };
-
+  
     if (isScrolling) {
       scrollTimeout = setInterval(handleScroll, 100); // Adjust scroll interval here
     }
-
+  
     return () => clearInterval(scrollTimeout);
   }, [isScrolling]);
-
+  
   useEffect(() => {
     const handleSectionScroll = () => {
-      const sectionTop = gridRef.current.getBoundingClientRect().top;
-      if (sectionTop <= window.innerHeight / 2 && !isScrolling) {
-        setIsScrolling(true);
+      if (gridRef.current) {
+        const sectionTop = gridRef.current.getBoundingClientRect().top;
+        if (sectionTop <= window.innerHeight / 2 && !isScrolling) {
+          setIsScrolling(true);
+        }
       }
     };
-
+  
     window.addEventListener('scroll', handleSectionScroll);
-
+  
     return () => {
       window.removeEventListener('scroll', handleSectionScroll);
     };
@@ -203,7 +206,7 @@ function Page() {
       </div>
     </section>
 
-      <section className="bg-gray-400 min-h-screen flex relative z-40 pb-12">
+      <section className="bg-gray-800 min-h-screen flex relative z-40 pb-12">
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl font-bold text-center mb-8 text-primary pt-16 text-white">Meet Our Team</h2>
 
@@ -213,68 +216,63 @@ function Page() {
                     <div className="flex space-x-8">
                         {/* Cards 1-4 */}
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/1.jpg" alt="Team Member 1" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">John Doe</h3>
-                            <p className="text-gray-700">Role: Software Engineer</p>
+                            <img src="/assets/pictures/1.jpg" alt="Team Member 1" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Abdul Rafay</h3>
+                            <p className="text-gray-700">CEO and Co-Founder</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/4.jpg" alt="Team Member 2" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Jane Smith</h3>
-                            <p className="text-gray-700">Role: Graphic Designer</p>
+                            <img src="/assets/pictures/2.jpg" alt="Team Member 2" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Muhammad Ammar Raza</h3>
+                            <p className="text-gray-700">CTO and Co-Founder</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/3.jpg" alt="Team Member 3" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Alex Johnson</h3>
-                            <p className="text-gray-700">Role: Marketing Manager</p>
+                            <img src="/assets/pictures/5.jpg" alt="Team Member 3" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Muhammad Danish</h3>
+                            <p className="text-gray-700">Full-Stack Developer</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/2.jpg" alt="Team Member 4" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Peter Johnson</h3>
-                            <p className="text-gray-700">Role: SEO Specialist</p>
+                            <img src="/assets/pictures/7.jpg" alt="Team Member 4" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Muddasar Shoaib</h3>
+                            <p className="text-gray-700">Wordpress Developer</p>
                         </div>
                     </div>
 
                     {/* Additional set of cards (hidden on initial view) */}
                     <div className="flex space-x-8">
                         {/* Cards 5-8 */}
-                        <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/5.jpg" alt="Team Member 5" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Emily Brown</h3>
-                            <p className="text-gray-700">Role: UX Designer</p>
+                        <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72 ml-6">
+                            <img src="/assets/pictures/6.jpg" alt="Team Member 5" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Muhammad Ali Usman</h3>
+                            <p className="text-gray-700">Frontend Developer</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/6.jpg" alt="Team Member 6" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Michael Davis</h3>
-                            <p className="text-gray-700">Role: Frontend Developer</p>
+                            <img src="/assets/pictures/3.jpg" alt="Team Member 6" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2 pt-4">Arooba Zaman</h3>
+                            <p className="text-gray-700">Full-Stack Developer</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/7.jpg" alt="Team Member 7" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">Sarah Johnson</h3>
-                            <p className="text-gray-700">Role: Content Writer</p>
+                            <img src="/assets/pictures/4.jpg" alt="Team Member 7" className="w-full rounded-full mb-4"/>
+                            <h3 className="text-xl font-semibold mb-2">Kashmala Aslam</h3>
+                            <p className="text-gray-700">Frontend Developer</p>
                         </div>
 
-                        <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center w-72">
-                            <img src="https://spacema-dev.com/elevate/assets/images/team/8.jpg" alt="Team Member 8" className="w-full rounded-full mb-4"/>
-                            <h3 className="text-xl font-semibold mb-2">David Wilson</h3>
-                            <p className="text-gray-700">Role: Project Manager</p>
-                        </div>
                     </div>
                 </div>
 
                 {/* Scroll buttons */}
                 <div className="flex justify-center space-x-4 mt-4">
-                    <button onClick={scrollLeft} className="bg-white shadow-lg text-indigo-500 px-4 py-2 rounded-full hover:bg-none hover:bg-indigo-500 hover:text-none hover:text-white focus:outline-none opacity-50"><FontAwesomeIcon icon={faChevronLeft} className='text-indigo-500 hover:text-none hover:text-white'></FontAwesomeIcon></button>
-                    <button onClick={scrollRight} className="bg-white shadow-lg text-indigo-500 px-4 py-2 rounded-full hover:bg-none hover:bg-indigo-500 hover:text-none hover:text-white focus:outline-none opacity-50"><FontAwesomeIcon icon={faChevronRight} className='text-indigo-500 hover:text-none hover:text-white'></FontAwesomeIcon></button>
+                    <button onClick={scrollLeft} className=" rounded-full text-white px-4 py-2 hover:bg-none hover:bg-indigo-500 hover:text-none hover:text-white focus:outline-none opacity-50"><FontAwesomeIcon icon={faChevronLeft} className='text-white hover:text-none hover:text-white'></FontAwesomeIcon></button>
+                    <button onClick={scrollRight} className=" text-indigo-500 px-4 py-2 rounded-full hover:bg-none hover:bg-indigo-500 hover:text-none hover:text-white focus:outline-none opacity-50"><FontAwesomeIcon icon={faChevronRight} className='text-white hover:text-none hover:text-white'></FontAwesomeIcon></button>
                 </div>
             </div>
       </section>
 
-      <section className="bg-gray-500 min-h-screen flex relative z-40">
+      {/*<section className="bg-gray-500 min-h-screen flex relative z-40">
       <div className="overflow-hidden shadow-md text-center">
         <h1 className="text-4xl font-semibold text-white py-12">Teams Activities</h1>
         <Marquee gradient={false} className='pt-12 shadow-lg'>
@@ -288,7 +286,7 @@ function Page() {
           ))}
         </Marquee>
       </div>
-    </section>
+    </section>*/}
 
       <Footer />
     </div>

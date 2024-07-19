@@ -1,3 +1,4 @@
+'use client'
 import Approach from '@/app/components/approach/Approach'
 import Footer from '@/app/components/footer/Footer'
 import Service from '@/app/components/serviceheader/Service'
@@ -46,15 +47,15 @@ function page() {
 			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
 				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
 				<img
-					src="/assets/pictures/bi.svg"
+					src="/assets/pictures/chatgpt-3.svg"
 					alt="MongoDB Icon"
 					className="h-12 w-12 text-indigo-400 grayscale"
 					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
 				/>
 				</div>
 				<div className="space-y-2">
-				<h3 className="font-bold text-white">Power BI</h3>
-				<p className="text-sm text-white">Graph plotting and reports making</p>
+				<h3 className="font-bold text-white">Chatgpt</h3>
+				<p className="text-sm text-white">GIntegrating the power of Chatgpt</p>
 				</div>
 			</div>
 			</div>
@@ -63,15 +64,15 @@ function page() {
 			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
 				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
 				<img
-					src="/assets/pictures/tableau.svg"
+					src="/assets/pictures/gemini.svg"
 					alt="MongoDB Icon"
 					className="h-12 w-12 text-indigo-400 grayscale"
 					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
 				/>
 				</div>
 				<div className="space-y-2">
-				<h3 className="font-bold text-white">Tableau</h3>
-				<p className="text-sm text-white">Graph plotting and reports making</p>
+				<h3 className="font-bold text-white">Google Gemini</h3>
+				<p className="text-sm text-white">Integrating the power of gemini</p>
 				</div>
 			</div>
 			</div>

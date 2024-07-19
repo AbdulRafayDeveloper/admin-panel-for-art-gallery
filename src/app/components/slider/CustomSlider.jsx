@@ -16,8 +16,8 @@ const CustomSlider = () => {
 
   // Array of video file names, each associated with a slide index
   const videoFileNames = [
-    "video1.mp4", // Slide 1
-    "video2.mp4", // Slide 2
+    "video2.mp4", // Slide 1
+    "video1.mp4", // Slide 2
   ];
 
   // Array of text content for each slide
@@ -59,19 +59,19 @@ const CustomSlider = () => {
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 flex items-center justify-between w-20 sm:w-24 md:w-32">
           <button
             type="button"
-            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-800/50 text-white rounded-full flex items-center justify-center"
+            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white  flex items-center justify-center"
             onClick={prevSlide}
           >
-            <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             type="button"
-            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-800/50 text-white rounded-full flex items-center justify-center"
+            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white  flex items-center justify-center"
             onClick={nextSlide}
           >
-            <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>

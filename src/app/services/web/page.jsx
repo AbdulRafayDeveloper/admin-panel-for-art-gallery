@@ -105,7 +105,7 @@ function page() {
 							</path>
 						</svg>
 						<div className="space-y-2">
-							<h3 className="font-bold text-white">Next.js 13</h3>
+							<h3 className="font-bold text-white">Next.js </h3>
 							<p className="text-sm text-muted-foreground text-white">App dir, Routing, Layouts, Loading UI and API routes.</p>
 						</div>
 					</div>
@@ -120,7 +120,7 @@ function page() {
 							</path>
 						</svg>
 						<div className="space-y-2">
-							<h3 className="font-bold text-white">React 18</h3>
+							<h3 className="font-bold text-white">React</h3>
 							<p className="text-sm text-white">Server and Client Components. Use hook.</p>
 						</div>
 					</div>
@@ -152,7 +152,7 @@ function page() {
 							</path>
 						</svg>
 						<div className="space-y-2">
-							<h3 className="font-bold text-white">Components</h3>
+							<h3 className="font-bold text-white">Tailwind css</h3>
 							<p className="text-sm text-muted-foreground text-white">UI components built using Radix UI and styled with Tailwind
 								CSS.</p>
 						</div>
@@ -189,6 +189,142 @@ function page() {
 					<div className="space-y-2">
 					<h3 className="font-bold text-white">MySQL</h3>
 					<p className="text-sm text-white">Famous SQL Database </p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/flask.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Flask</h3>
+					<p className="text-sm text-white">Python framework for backend</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/supabase-icon.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Supabase</h3>
+					<p className="text-sm text-white">Vector Database</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/boot.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Bootstrap</h3>
+					<p className="text-sm text-white">Frontend framework</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/html.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">HTML</h3>
+					<p className="text-sm text-white">Scripting Language</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/css.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">CSS</h3>
+					<p className="text-sm text-white">Frontend styling</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/express.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Express JS</h3>
+					<p className="text-sm text-white">Node.js web application framework</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/nestjs.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Nest JS</h3>
+					<p className="text-sm text-white">NestJS is a framework for building efficient, scalable Node.js web applications</p>
+					</div>
+				</div>
+				</div>
+
+				<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+				<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+					<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+					<img
+						src="/assets/pictures/typescript.svg"
+						alt="MongoDB Icon"
+						className="h-12 w-12 text-indigo-400 grayscale"
+						style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+					/>
+					</div>
+					<div className="space-y-2">
+					<h3 className="font-bold text-white">Typescript</h3>
+					<p className="text-sm text-white">Scripting language</p>
 					</div>
 				</div>
 				</div>

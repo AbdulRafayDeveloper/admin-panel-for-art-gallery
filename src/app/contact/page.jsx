@@ -1,22 +1,226 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Nav from '../components/navbar/Nav';
 import Footer from '../components/footer/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import SweetAlert from '../components/alert/SweetAlert'
+import axios from 'axios';
 
 
 const MapContainer = () => {
-  const [loading, setLoading] = useState(true);
-  const [formData, setFormData] = useState({
+
+  const [count, setCount] = useState(0);
+
+  const btnRef = useRef(null);
+  const [Formdata, setFormdata] = useState({
     name: '',
     city: '',
     email: '',
     number: '',
     message: '',
   });
-  const [errors, setErrors] = useState({});
+
+  const [errorMessages, setErrorMessages] = useState({
+		name: '',
+		email: '',
+		number: '',
+		city: '',
+    message:''})
+
+  const validateForm = () => {
+      const { name, email, number, city, message } = Formdata;
+      const nameRegex = /^[a-zA-Z\s]*$/;
+      const cityRegex = /^[a-zA-Z\s]*$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    
+      let valid = true;
+    
+      setErrorMessages({
+        name: '',
+        email: '',
+        number: '',
+        city: '',
+        message:''  
+      });
+    
+      if (name ==="") {
+        
+        setErrorMessages(prevState => ({ ...prevState, name: 'Name is required' }));
+        valid = false;
+      } else if (!nameRegex.test(name)) {
+        
+        setErrorMessages(prevState => ({ ...prevState, name: 'Name should not contain numbers or special characters' }));
+        valid = false;
+      }
+    
+      if (email==="") {
+        setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
+        valid = false;
+      } else if (!emailRegex.test(email)) {
+        setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
+        valid = false;
+      }
+    
+      if (number.length !== 11) {
+        setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
+        valid = false;
+      }
+    
+      if (city==="") {
+        setErrorMessages(prevState => ({ ...prevState, city: 'City is required' }));
+        valid = false;
+      } else if (!cityRegex.test(city)) {
+        setErrorMessages(prevState => ({ ...prevState, city: 'City should not contain numbers or special characters' }));
+        valid = false;
+      }
+    
+      if (message === "")
+      {
+        setErrorMessages(prevState => ({ ...prevState, message: 'Message is required' }));
+        valid = false;
+      }else if (message.split(/\s+/).length > 200) {
+        setErrorMessages(prevState => ({ ...prevState, message: 'Message should not exceed 200 words' }));
+        valid = false;
+      }
+    
+      return valid;
+    };
+  
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormdata({ ...Formdata, [name]: value });
+        
+        // Validation checks and updating error messages accordingly
+        if (name === 'name') {
+          if (value.trim() === '') 
+          {
+            setErrorMessages(prevState => ({ ...prevState, name: 'Name is required' }));
+          } 
+          else if (!/^[a-zA-Z\s]*$/.test(value)) 
+          {
+            setErrorMessages(prevState => ({ ...prevState, name: 'Name should not contain numbers or special characters' }));
+          } 
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, name: '' }));
+          }
+        } 
+        else if (name === 'email') 
+        {
+          if (value.trim() === '') 
+          {
+            setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
+          }
+          else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value)) 
+          {
+            setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
+          } 
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, email: '' }));
+          }
+        } 
+        else if (name === 'number') 
+        {
+          if (value.length !== 11) 
+          {
+            setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
+          } 
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, number: '' }));
+          }
+        } 
+        else if (name === 'city') 
+        {
+          if (value.trim() === '') 
+          {
+            setErrorMessages(prevState => ({ ...prevState, city: 'City is required' }));
+          } 
+          else if (!/^[a-zA-Z\s]*$/.test(value)) 
+          {
+            setErrorMessages(prevState => ({ ...prevState, city: 'City should not contain numbers or special characters' }));
+          } 
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, city: '' }));
+          }
+        } 
+        else if (name === 'message') 
+        {
+          const words = value.trim().split(/\s+/).filter(Boolean);
+          const wordCount = words.length;
+          if (value.trim() === '') 
+          {
+            setErrorMessages(prevState => ({ ...prevState, message: 'Message is required' }));
+          } 
+          else if(wordCount > 200) {
+            setErrorMessages(prevState => ({ ...prevState, message: 'You have reached the word limit of 200 words.' }));
+          }
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, message: '' }));
+            setCount(wordCount)
+          }
+        } 
+      };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        if (
+          Formdata.name === '' &&
+          Formdata.email === '' &&
+          Formdata.number === '' &&
+          Formdata.city === '' &&
+          Formdata.message === '' 
+          ) {
+            SweetAlert('Validation Error', 'Complete all the required fields', 'error');
+            validateForm()
+            return;
+        }
+        
+          // Validate form fields
+        if (!validateForm()) {
+          SweetAlert('Validation Error', 'Enter valid values', 'error')
+          return;
+        }
+    
+    
+        const FormdataToSend = new FormData()
+    
+        FormdataToSend.append('name', Formdata.name);
+        FormdataToSend.append('email', Formdata.email);
+        FormdataToSend.append('number', Formdata.number);
+        FormdataToSend.append('city', Formdata.city);
+        FormdataToSend.append('description', Formdata.message);
+        
+        try {
+          console.log("Data sent: ", FormdataToSend);
+          await axios.post('/api/contact', FormdataToSend);
+          btnRef.current.classList.add('disable');
+
+          SweetAlert('Success', 'File uploaded successfully!', 'success');
+          setCount(0)
+          setFormdata({
+            name: '',
+            email: '',
+            number: '',
+            city: '',
+            message: '',
+           
+          });
+        } catch (error) {
+          console.error('Error:', error);
+          SweetAlert('Error', error.response?.data?.message || 'Form not submitted', 'error');
+        }
+      };
+
+  const [loading, setLoading] = useState(true);
+  
+  
   const apiKey = 'AIzaSyB5epiSWC9Z6HiRNpuzfq_mEXNrBZ7r05I'; // Replace with your Google Maps API key
   const address = 'Dzone Technologies,C3XX+85C, Ashrafabad, Faisalabad'; // Replace with the desired location
 
@@ -24,41 +228,7 @@ const MapContainer = () => {
     setLoading(false); // Simulate loading completion
   }, []);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.city) newErrors.city = 'City is required';
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.number) {
-      newErrors.number = 'Contact number is required';
-    } else if (!/^\d+$/.test(formData.number)) {
-      newErrors.number = 'Contact number must be numeric';
-    }
-    if (!formData.message) newErrors.message = 'Message is required';
-    return newErrors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length === 0) {
-      // Submit form data
-      console.log('Form submitted', formData);
-    } else {
-      setErrors(newErrors);
-    }
-  };
+  
 
   useEffect(() => {
     setLoading(false); // Simulate loading completion
@@ -78,6 +248,8 @@ const MapContainer = () => {
     );
   }
 
+  
+
   return (
     <div className='bg-black'>
       <Nav />
@@ -95,66 +267,74 @@ const MapContainer = () => {
 
       <section className="bg-white min-h-screen flex flex-col md:flex-row justify-center items-center">
         <div className="md:w-1/2 p-8 md:pl-16">
-          <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+          <form className="max-w-sm mx-auto" onSubmit={handleSubmit} method='post'>
             <h1 className="text-3xl text-gray-900 dark:text-white mb-4">Please fill the form</h1>
             <div className="mb-4">
               <input
                   type="text"
                   id="name"
-                  value={formData.name}
+                  value={Formdata.name}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
+                  name='name'
+                  className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Your name*"
-                  required
                 />
+                {errorMessages.name && <span className='text-red-500 font-light text-sm validate'>{errorMessages.name}</span>}
             </div>
             <div className="mb-4">
               <input
                   type="text"
                   id="city"
-                  value={formData.city}
+                  value={Formdata.city}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
+                  name='city'
+                  className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="City*"
-                  required
+                  
                 />
-                {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
+                {errorMessages.city && <span className='text-red-500 font-light text-sm validate'>{errorMessages.city}</span>}
             </div>
             <div className="mb-4">
               <input
                   type="email"
                   id="email"
-                  value={formData.email}
+                  value={Formdata.email}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
+                  name='email'
+                  className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Email*"
-                  required
+                  
                 />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                {errorMessages.email && <span className='text-red-500 font-light text-sm validate'>{errorMessages.email}</span>}
             </div>
             <div className="mb-4">
               <input
                   type="text"
                   id="number"
-                  value={formData.number}
+                  value={Formdata.number}
                   onChange={handleChange}
-                  className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
+                  name='number'
+                  className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Contact no.*"/>
+                  {errorMessages.number && <span className='text-red-500 font-light text-sm validate'>{errorMessages.number}</span>}
             </div>
             <div className="mb-4">
+                <p className='font-light text-gray-700 text-sm flex justify-end'>{count}/200</p>
                 <textarea
                     id="message"
-                    value={formData.message}
+                    value={Formdata.message}
                     onChange={handleChange}
-                    className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
+                    name='message'
+                    className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                     cols={4}
                     rows={5}
                     placeholder="Please tell us a bit about what you are looking for*"
-                    required
+                    
                   />
+                  {errorMessages.message && <span className='text-red-500 font-light text-sm validate'>{errorMessages.message}</span>}
             </div>
               <button
-              type="submit"
+              type="submit" ref={btnRef}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
               Submit

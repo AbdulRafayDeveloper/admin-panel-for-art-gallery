@@ -1,3 +1,4 @@
+'use client'
 import Approach from '@/app/components/approach/Approach'
 import Footer from '@/app/components/footer/Footer'
 import Service from '@/app/components/serviceheader/Service'
@@ -29,32 +30,15 @@ function page() {
 			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
 				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
 				<img
-					src="/assets/pictures/swift.svg"
+					src="/assets/pictures/native.svg"
 					alt="MongoDB Icon"
 					className="h-12 w-12 text-indigo-400 grayscale"
 					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
 				/>
 				</div>
 				<div className="space-y-2">
-				<h3 className="font-bold text-white">Swift</h3>
+				<h3 className="font-bold text-white">React Native</h3>
 				<p className="text-sm text-white">Programming language</p>
-				</div>
-			</div>
-			</div>
-
-			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
-			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-				<img
-					src="/assets/pictures/ios.svg"
-					alt="MongoDB Icon"
-					className="h-12 w-12 text-indigo-400 grayscale"
-					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
-				/>
-				</div>
-				<div className="space-y-2">
-				<h3 className="font-bold text-white">IOS</h3>
-				<p className="text-sm text-white">IOS apps </p>
 				</div>
 			</div>
 			</div>
@@ -98,7 +82,6 @@ function page() {
 		</section>
 		<List servicesList={['Native App Development',
 							 'Cross-Platform App Development',
-							 'iOS App Development',
 							 'Android App Development',
 							 'UI/UX Design for Mobile Apps',
 							 'Mobile App Strategy and Consulting',

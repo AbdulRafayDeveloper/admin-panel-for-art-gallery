@@ -1,9 +1,39 @@
 'use client'
 import React from 'react'
 import Nav from '../components/navbar/Nav'
-import { useState } from 'react';
+import { useState,useRef,useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../components/footer/Footer';
+
+const useIntersectionObserver = (setRefs) => {
+	useEffect(() => {
+	  const observer = new IntersectionObserver(
+		(entries) => {
+		  entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+			  entry.target.classList.add('fade-in');
+			  observer.unobserve(entry.target);
+			}
+		  });
+		},
+		{ threshold: 0.1 }
+	  );
+  
+	  setRefs.forEach((ref) => {
+		if (ref.current) {
+		  observer.observe(ref.current);
+		}
+	  });
+  
+	  return () => {
+		setRefs.forEach((ref) => {
+		  if (ref.current) {
+			observer.unobserve(ref.current);
+		  }
+		});
+	  };
+	}, [setRefs]);
+  };
 
 function page() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,9 +42,12 @@ function page() {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const refs = [useRef(null), useRef(null),useRef(null), useRef(null)];
+  useIntersectionObserver(refs);
+
   return (
 	<div>
-		<section className="relative bg-gray-100 h-screen">
+		<section className="relative bg-white h-screen">
 			<div className="absolute inset-0 z-0">
 				<video
 				className="w-full h-full object-cover"
@@ -56,10 +89,11 @@ function page() {
 			</div>
 		</section>
 
-		<section className="bg-gray-100 min-h-screen flex justify-center items-center p-8 pt-12">
+		<section className="bg-white min-h-screen flex flex-col justify-center items-center p-8 pt-12">
+		<h1 className="text-3xl font-light mb-12">Our Portfolio Projects</h1>
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-16 max-w-screen-lg">
 
-				<div className="max-w-lg">
+				<div className="max-w-lg" ref={refs[0]}>
 				<Link href="#">
 					<img className="rounded-t-lg w-full object-cover" src="/assets/pictures/portfolio.png" alt="Portfolio" />
 				</Link>
@@ -76,6 +110,61 @@ function page() {
 					</Link>
 				</div>
 				</div>
+
+				<div className="max-w-lg" ref={refs[1]}>
+				<Link href="#">
+					<img className="rounded-t-lg w-full object-cover" src="/assets/pictures/portfolio.png" alt="Portfolio" />
+				</Link>
+				<div className="p-4">
+					<p className="mb-4 font-light text-gray-700 text-xl">
+					We recently developed an advanced AI-powered analytics dashboard designed to revolutionize how businesses interpret and utilize their data.
+					</p>
+					<Link href="/../portfolio/project1" className="relative text-indigo-700 flex items-center group">
+					Read more
+					<svg className="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+					</svg>
+					<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-1/4 transition-all duration-300 ease-in-out"></span>
+					</Link>
+				</div>
+				</div>
+
+				<div className="max-w-lg" ref={refs[2]}>
+				<Link href="#">
+					<img className="rounded-t-lg w-full object-cover" src="/assets/pictures/portfolio.png" alt="Portfolio" />
+				</Link>
+				<div className="p-4">
+					<p className="mb-4 font-light text-gray-700 text-xl">
+					We recently developed an advanced AI-powered analytics dashboard designed to revolutionize how businesses interpret and utilize their data.
+					</p>
+					<Link href="/../portfolio/project1" className="relative text-indigo-700 flex items-center group">
+					Read more
+					<svg className="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+					</svg>
+					<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-1/4 transition-all duration-300 ease-in-out"></span>
+					</Link>
+				</div>
+				</div>
+
+				<div className="max-w-lg" ref={refs[3]}>
+				<Link href="#">
+					<img className="rounded-t-lg w-full object-cover" src="/assets/pictures/portfolio.png" alt="Portfolio" />
+				</Link>
+				<div className="p-4">
+					<p className="mb-4 font-light text-gray-700 text-xl">
+					We recently developed an advanced AI-powered analytics dashboard designed to revolutionize how businesses interpret and utilize their data.
+					</p>
+					<Link href="/../portfolio/project1" className="relative text-indigo-700 flex items-center group">
+					Read more
+					<svg className="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+						<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+					</svg>
+					<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-1/4 transition-all duration-300 ease-in-out"></span>
+					</Link>
+				</div>
+				</div>
+
 
 			</div>
 		</section>

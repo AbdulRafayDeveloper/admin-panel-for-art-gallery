@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const Nav = () => {
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true); // Track if nav should be visible
   const [isNavScrolled, setIsNavScrolled] = useState(false);
@@ -60,7 +61,11 @@ const Nav = () => {
     <nav className={`sticky top-0 z-10 transition-all duration-300 ease-in-out ${isNavScrolled ? 'bg-white text-gray-900 font-medium shadow-md' : 'bg-transparent text-white bg-opacity-10'}`} style={{ visibility: isNavVisible ? 'visible' : 'hidden', opacity: isNavVisible ? 1 : 0 }}>
       <div className="max-w-7xl mx-auto px-4 bg-none">
         <div className="flex items-center justify-between h-16 bg-none relative ">
-          <NavItem label="DevWays" url="/" isSelected={selectedNavItem === "DevWays"} onSelect={handleNavItemSelect} />
+        <img
+          src="/assets/pictures/D.png" // Replace with your image path
+          alt="Logo"
+          className="w-11 h-11 object-cover rounded-full"
+        />
           <div className="hidden md:flex space-x-8">
             <NavItem label="Home" url="/" isSelected={selectedNavItem === "Home"} onSelect={handleNavItemSelect} />
             <DropdownMenu label="Services" items={servicesItems} isSelected={selectedNavItem === "Services"} onSelect={handleNavItemSelect} />
@@ -104,7 +109,7 @@ const Nav = () => {
 
 const NavItem = ({ label, url, isSelected, onSelect, isNavScrolled }) => (
   <Link href={url}>
-    <div className={`text-lg font-medium hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-black' : ""}`} onClick={() => onSelect(label)}>
+    <div className={`text-lg font-medium hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-white' : ""}`} onClick={() => onSelect(label)}>
       {label}
     </div>
   </Link>
@@ -141,7 +146,7 @@ const DropdownMenu = ({ label, items, isSelected, onSelect, closeMenu,isNavScrol
         </svg>
       </div>
       {isOpen && (
-        <div className="fixed inset-0 bg-white bg-opacity-90 flex flex-row z-20 mt-16 text-black">
+        <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-row z-20 mt-16 text-black">
           <div className="flex-1 bg-gray-200 p-4 flex flex-col items-center justify-center">
             <h1 className='text-2xl text-black font-semibold '>{label}</h1>
             {label === 'Services' && (
@@ -176,10 +181,10 @@ const DropdownMenu = ({ label, items, isSelected, onSelect, closeMenu,isNavScrol
 // Example items for dropdowns
 const servicesItems = [
   { label: 'Web Development', url: '/services/web' },
-  { label: 'Cloud Services', url: '/services/cloud' },
+  { label: 'Cloud Deployment Services', url: '/services/cloud' },
   { label: 'AI Solutions', url: '/services/ai' },
   { label: 'Mobile App Development', url: '/services/mob' },
-  { label: 'SEO Services', url: '/services/seo' },
+  //{ label: 'SEO Services', url: '/services/seo' },
 ];
 const insightItems = [
   { label: 'Portfolio', url: '/../portfolio/' },

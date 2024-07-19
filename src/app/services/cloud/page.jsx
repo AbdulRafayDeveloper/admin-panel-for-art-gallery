@@ -1,3 +1,4 @@
+'use client'
 import Approach from '@/app/components/approach/Approach'
 import Footer from '@/app/components/footer/Footer'
 import Service from '@/app/components/serviceheader/Service'
@@ -23,41 +24,6 @@ function page() {
 		</div>
 
 		<div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-
-
-			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
-			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-				<img
-					src="/assets/pictures/google.svg"
-					alt="MongoDB Icon"
-					className="h-12 w-12 text-indigo-400 grayscale"
-					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
-				/>
-				</div>
-				<div className="space-y-2">
-				<h3 className="font-bold text-white">Google Cloud</h3>
-				<p className="text-sm text-white">Google Cloud services integration</p>
-				</div>
-			</div>
-			</div>
-
-			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
-			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
-				<img
-					src="/assets/pictures/ibm.svg"
-					alt="MongoDB Icon"
-					className="h-12 w-12 text-indigo-400 grayscale"
-					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
-				/>
-				</div>
-				<div className="space-y-2">
-				<h3 className="font-bold text-white">IBM</h3>
-				<p className="text-sm text-white">IBM Cloud services integration</p>
-				</div>
-			</div>
-			</div>
 
 			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
 			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
@@ -89,6 +55,57 @@ function page() {
 				<div className="space-y-2">
 				<h3 className="font-bold text-white">Azure</h3>
 				<p className="text-sm text-white">Azure Cloud services integration</p>
+				</div>
+			</div>
+			</div>
+
+			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+				<img
+					src="/assets/pictures/digitalocean.svg"
+					alt="MongoDB Icon"
+					className="h-12 w-12 text-indigo-400 grayscale"
+					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+				/>
+				</div>
+				<div className="space-y-2">
+				<h3 className="font-bold text-white">Digital Ocean</h3>
+				<p className="text-sm text-white"> Cloud services integration</p>
+				</div>
+			</div>
+			</div>
+
+			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+				<img
+					src="/assets/pictures/heroku.svg"
+					alt="MongoDB Icon"
+					className="h-12 w-12 text-indigo-400 grayscale"
+					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+				/>
+				</div>
+				<div className="space-y-2">
+				<h3 className="font-bold text-white">Heroku</h3>
+				<p className="text-sm text-white">Cloud services integration</p>
+				</div>
+			</div>
+			</div>
+
+			<div className="relative overflow-hidden rounded-lg bg-gray-700 select-none hover:shadow hover:shadow-teal-200 p-2">
+			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+				<div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-indigo-50">
+				<img
+					src="/assets/pictures/vercel.svg"
+					alt="MongoDB Icon"
+					className="h-12 w-12 text-indigo-400 grayscale"
+					style={{ filter: 'grayscale(80%)' }} // Applying grayscale filter
+				/>
+				</div>
+				<div className="space-y-2">
+				<h3 className="font-bold text-white">Vercel</h3>
+				<p className="text-sm text-white">Cloud services integration</p>
 				</div>
 			</div>
 			</div>

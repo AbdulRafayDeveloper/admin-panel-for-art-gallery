@@ -19,7 +19,7 @@ import Footer from '@/app/components/footer/Footer';
 const page = () => {
 
   const controls = useAnimation();
-
+  
   const handleScroll = () => {
     const top = window.pageYOffset;
     const windowHeight = window.innerHeight;
@@ -183,7 +183,7 @@ const page = () => {
             zIndex: '-1', 
           }}
         ></div>
-        <div className="container relative z-10 ">
+        <div className="container relative z-0 ">
           {/* Content */}
           <div className="flex flex-wrap -mx-4">
             <div className="w-full px-4">
@@ -466,10 +466,10 @@ const page = () => {
         </div>
         <div className="max-w-screen-xl grid grid-cols-1 gap-8 px-4 mt-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-16 xl:gap-24">
           <div ref={(el) => (countersRef.current[0] = el)} className="flex flex-col items-center justify-center">
-            <h3 className="mb-2 text-4xl font-bold dark:text-white">
+            <h3 className="mb-2 text-4xl font-bold text-indigo-400">
               <FontAwesomeIcon icon={faCalendarCheck} className="p-2" />
               <br />
-              <span className="counter" data-target="47">0</span>+
+              <span className="counter" data-target="2">0</span>+
             </h3>
             <p className="font-light text-gray-400">Years of Continual excellence</p>
           </div>
@@ -477,7 +477,7 @@ const page = () => {
             <h3 className="mb-2 text-4xl font-bold text-indigo-400">
               <FontAwesomeIcon icon={faUser} className="p-2" />
               <br />
-              <span className="counter" data-target="50">0</span>+
+              <span className="counter mb-2" data-target="2">0</span>+
             </h3>
             <p className="font-light text-gray-400">Change makers diving revolution</p>
           </div>
@@ -485,7 +485,7 @@ const page = () => {
             <h3 className="mb-2 text-4xl font-bold text-indigo-400">
               <FontAwesomeIcon icon={faGlobe} className="p-2" />
               <br />
-              <span className="counter" data-target="16">0</span>+
+              <span className="counter" data-target="5">0</span>+
             </h3>
             <p className="font-light text-gray-400">Countries with our presence and Clients</p>
           </div>
@@ -493,7 +493,7 @@ const page = () => {
             <h3 className="mb-2 text-4xl font-bold text-indigo-400">
               <FontAwesomeIcon icon={faListCheck} className="p-2" />
               <br />
-              <span className="counter" data-target="50">0</span>+
+              <span className="counter" data-target="35">0</span>+
             </h3>
             <p className="font-light text-gray-400">Projects Delivered</p>
           </div>
