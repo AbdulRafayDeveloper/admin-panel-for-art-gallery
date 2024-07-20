@@ -24,6 +24,7 @@
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",
     "react-intersection-observer": "^9.13.0",
+    "react-phone-input-2": "^2.15.1",
     "react-scroll": "^1.9.0",
     "sweetalert2": "^11.12.2",
     "swiper": "^11.1.4",

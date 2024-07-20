@@ -75,7 +75,7 @@ const Nav = () => {
             <NavItem label="Request a Quote" url="/../quote/" isSelected={selectedNavItem === "Request a Quote"} onSelect={handleNavItemSelect} />
           </div>
           <div className="md:hidden">
-            <button className="text-white focus:outline-none" onClick={toggleMobileMenu}>
+            <button className={` ${isNavScrolled ? 'text-black' : 'text-white'}`} onClick={toggleMobileMenu}>
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
@@ -139,7 +139,7 @@ const DropdownMenu = ({ label, items, isSelected, onSelect, closeMenu,isNavScrol
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <div onClick={toggleDropdown} className={`text-lg font-medium flex items-center justify-between hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-black' : ""}`}>
+      <div onClick={toggleDropdown} className={`text-lg font-medium flex items-center justify-between hover:text-indigo-300 transition duration-300 ease-in-out transform hover:scale-110 cursor-pointer py-2 ${isSelected || isNavScrolled ? 'text-white' : ""}`}>
         {label}{' '}
         <svg className={`w-4 h-4 inline-block transform ${isOpen ? 'rotate-0' : '-rotate-90'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>

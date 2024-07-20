@@ -5,6 +5,8 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect,useState,useRef } from 'react'
 import SweetAlert from '../components/alert/SweetAlert'
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'
 
 function page() {
 
@@ -72,11 +74,6 @@ function page() {
 		  valid = false;
 		} else if (!emailRegex.test(email)) {
 		  setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
-		  valid = false;
-		}
-	
-		if (number.length !== 11) {
-		  setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
 		  valid = false;
 		}
 	
@@ -157,8 +154,7 @@ function page() {
 		}
 	  };
 	
-	  const handleChange = (e) => {
-		const { name, value } = e.target;
+	  const handleChange = (name, value) => {
 		setFormdata({ ...Formdata, [name]: value });
 	  
 		// Validation checks and updating error messages accordingly
@@ -178,13 +174,7 @@ function page() {
 		  } else {
 			setErrorMessages(prevState => ({ ...prevState, email: '' }));
 		  }
-		} else if (name === 'number') {
-		  if (value.length !== 11) {
-			setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
-		  } else {
-			setErrorMessages(prevState => ({ ...prevState, number: '' }));
-		  }
-		} else if (name === 'city') {
+		}  else if (name === 'city') {
 		  if (value.trim() === '') {
 			setErrorMessages(prevState => ({ ...prevState, city: 'City is required' }));
 		  } else if (!/^[a-zA-Z\s]*$/.test(value)) {
@@ -367,7 +357,7 @@ function page() {
 								id="name"
 								name='name'
 								value={Formdata.name}
-								onChange={handleChange}
+								onChange={(e) => handleChange('name', e.target.value)}
 								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
 								placeholder="Your name*"
 								
@@ -381,7 +371,7 @@ function page() {
 								id="city"
 								name='city'
 								value={Formdata.city}
-								onChange={handleChange}
+								onChange={(e) => handleChange('city', e.target.value)}
 								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="City*"
 								
@@ -395,7 +385,7 @@ function page() {
 								id="email"
 								name='email'
 								value={Formdata.email}
-								onChange={handleChange}
+								onChange={(e) => handleChange('email', e.target.value)}
 								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Email*"
 								
@@ -404,11 +394,11 @@ function page() {
 						</div>
 
 						<div>
-							<input
-								type="text"
+							<PhoneInput
+								country={"pk"}
 								id="number"
 								value={Formdata.number}
-								onChange={handleChange}
+								onChange={(value) => handleChange('number', value)}
 								name='number'
 								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Contact no. (optional)"
@@ -425,7 +415,7 @@ function page() {
 									id="projectName"
 									name='projectName'
 									value={Formdata.projectName}
-									onChange={handleChange}
+									onChange={(e) => handleChange('projectName', e.target.value)}
 									className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
 									placeholder="Project Name*"
 									
@@ -438,7 +428,7 @@ function page() {
 									id="projectCategory"
 									name='projectCategory'
 									value={Formdata.projectCategory}
-            						onChange={handleChange}
+            						onChange={(e) => handleChange('projectCategory', e.target.value)}
 									className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
 									
 								>
@@ -456,7 +446,7 @@ function page() {
 									id="projectTimeline"
 									name='projectTimeline'
 									value={Formdata.projectTimeline}
-           							onChange={handleChange}
+									onChange={(e) => handleChange('projectTimeline', e.target.value)}
 									className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
 									
 								>
@@ -472,7 +462,7 @@ function page() {
 								<select
 									id="projectBudget"
 									value={Formdata.projectBudget}
-            						onChange={handleChange}
+            						onChange={(e) => handleChange('projectBudget', e.target.value)}
 									name='projectBudget'
 									typeof='text'
 									className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
@@ -494,7 +484,7 @@ function page() {
 								<textarea
 									id="message"
 									value={Formdata.message}
-          							onChange={handleChange}
+									onChange={(e) => handleChange('message', e.target.value)}
 									name='message'
 									className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 "
 									cols={4}

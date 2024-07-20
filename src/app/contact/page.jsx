@@ -7,6 +7,8 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import SweetAlert from '../components/alert/SweetAlert'
 import axios from 'axios';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'
 
 
 const MapContainer = () => {
@@ -64,8 +66,8 @@ const MapContainer = () => {
         valid = false;
       }
     
-      if (number.length !== 11) {
-        setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
+      if (number.length == "") {
+        setErrorMessages(prevState => ({ ...prevState, number: 'Enter mobile numbers' }));
         valid = false;
       }
     
@@ -89,13 +91,12 @@ const MapContainer = () => {
       return valid;
     };
   
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormdata({ ...Formdata, [name]: value });
+    const handleChange = (name, value) => {
+      setFormdata({ ...Formdata, [name]: value });
         
         // Validation checks and updating error messages accordingly
         if (name === 'name') {
-          if (value.trim() === '') 
+          if (value === '') 
           {
             setErrorMessages(prevState => ({ ...prevState, name: 'Name is required' }));
           } 
@@ -108,6 +109,16 @@ const MapContainer = () => {
             setErrorMessages(prevState => ({ ...prevState, name: '' }));
           }
         } 
+        else if (name === 'number') {
+          if (value.trim() === '') 
+          {
+            setErrorMessages(prevState => ({ ...prevState, name: 'Number is required' }));
+          } 
+          else 
+          {
+            setErrorMessages(prevState => ({ ...prevState, name: '' }));
+          }
+        }
         else if (name === 'email') 
         {
           if (value.trim() === '') 
@@ -123,17 +134,7 @@ const MapContainer = () => {
             setErrorMessages(prevState => ({ ...prevState, email: '' }));
           }
         } 
-        else if (name === 'number') 
-        {
-          if (value.length !== 11) 
-          {
-            setErrorMessages(prevState => ({ ...prevState, number: 'Enter 11 numbers' }));
-          } 
-          else 
-          {
-            setErrorMessages(prevState => ({ ...prevState, number: '' }));
-          }
-        } 
+         
         else if (name === 'city') 
         {
           if (value.trim() === '') 
@@ -278,7 +279,7 @@ const MapContainer = () => {
                   type="text"
                   id="name"
                   value={Formdata.name}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange('name', e.target.value)}
                   name='name'
                   className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Your name*"
@@ -290,7 +291,7 @@ const MapContainer = () => {
                   type="text"
                   id="city"
                   value={Formdata.city}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange('city', e.target.value)}
                   name='city'
                   className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="City*"
@@ -303,7 +304,7 @@ const MapContainer = () => {
                   type="email"
                   id="email"
                   value={Formdata.email}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange('email', e.target.value)}
                   name='email'
                   className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Email*"
@@ -312,22 +313,22 @@ const MapContainer = () => {
                 {errorMessages.email && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.email}</span>}
             </div>
             <div className="mb-4">
-              <input
-                  type="text"
-                  id="number"
-                  value={Formdata.number}
-                  onChange={handleChange}
-                  name='number'
-                  className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
-                  placeholder="Contact no.*"/>
-                  {errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
+              <PhoneInput
+                country={'pk'}
+                id="number"
+                value={Formdata.number}
+                onChange={(value) => handleChange('number', value)} // Pass value directly
+                className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent placeholder-gray-400 dark:text-white focus:border-blue-500 border border-gray-600 custom-phone-input`}
+                
+                placeholder="Contact no.*"/>
+                {errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
             </div>
             <div className="mb-4">
                 <p className='font-light text-gray-700 text-sm flex justify-end'>{count}/200</p>
                 <textarea
                     id="message"
                     value={Formdata.message}
-                    onChange={handleChange}
+                    onChange={(e) => handleChange('message', e.target.value)}
                     name='message'
                     className={`bg-gray-50  text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                     cols={4}
