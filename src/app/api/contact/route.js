@@ -16,11 +16,8 @@ export async function POST(req, res)
 		const city = formData.get("city");
 		const description = formData.get("description");
 
-		const requiredFields = { name, email, city, description };
-		for (const [key, value] of Object.entries(requiredFields)) {
-			if (!value) {
-				return NextResponse.json({ error: `${key} is required.` }, { status: 400 });
-			}
+		if (!name || !email || !city || !description || !number) {
+			return NextResponse.json({ statusCode: 400, message: "Required fields are missing." });
 		}
 
 		const newContact = new Contact({
@@ -31,12 +28,19 @@ export async function POST(req, res)
 			description
 		  });
 	  
-		await newContact.save();
-		return NextResponse.json("done")
+		const data = await newContact.save();
+		if(data)
+		{
+			return NextResponse.json({ statusCode: 200, message: 'Data saved successfully', data: proc });
+		}
+		else{
+			return NextResponse.json({ statusCode: 500, message: 'Your Request has not been submitted. Try again later!'});
+		}
 
-	}catch(error)
+	}
+	catch(error)
 	{
-		return NextResponse.json(error)
+		return NextResponse.json({ statusCode: 500, message: 'An error occurred', data: error.message });
 	}
 }
 

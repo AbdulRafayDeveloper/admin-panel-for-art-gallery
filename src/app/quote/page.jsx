@@ -315,7 +315,7 @@ function page() {
 		}
 	  };
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const fetchData = async () => {
 		  try {
 			console.log('api hit 1')
@@ -328,7 +328,7 @@ function page() {
 		};
 	
 		fetchData();
-	  }, []);
+	  }, []);*/
 
 
   return (
@@ -372,7 +372,7 @@ function page() {
 								placeholder="Your name*"
 								
 							/>
-							{errorMessages.name && <span className='text-red-500 font-light text-sm validate'>{errorMessages.name}</span>}
+							{errorMessages.name && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.name}</span>}
 						</div>
 
 						<div >
@@ -386,7 +386,7 @@ function page() {
 								placeholder="City*"
 								
 							/>
-							{errorMessages.city && <span className='text-red-500 font-light text-sm validate'>{errorMessages.city}</span>}
+							{errorMessages.city && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.city}</span>}
 						</div>
 
 						<div >
@@ -400,7 +400,7 @@ function page() {
 								placeholder="Email*"
 								
 							/>
-							{errorMessages.email && <span className='text-red-500 font-light text-sm validate'>{errorMessages.email}</span>}
+							{errorMessages.email && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.email}</span>}
 						</div>
 
 						<div>
@@ -413,7 +413,7 @@ function page() {
 								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Contact no. (optional)"
 							/>
-							{errorMessages.number && <span className='text-red-500 font-light text-sm validate'>{errorMessages.number}</span>}
+							{errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
 						</div>
 					</div>
 
@@ -430,7 +430,7 @@ function page() {
 									placeholder="Project Name*"
 									
 								/>
-								{errorMessages.projectName && <span className='text-red-500 font-light text-sm validate'>{errorMessages.projectName}</span>}
+								{errorMessages.projectName && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.projectName}</span>}
 							</div>
 							
 							<div >
@@ -449,7 +449,7 @@ function page() {
 									<option value="ai">AI/ML</option>
 									<option value="other">Other</option>
 								</select>
-								{errorMessages.projectCategory && <span className='text-red-500 font-light text-sm validate'>{errorMessages.projectCategory}</span>}
+								{errorMessages.projectCategory && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.projectCategory}</span>}
 							</div>
 							<div >
 								<select
@@ -466,7 +466,7 @@ function page() {
 									<option value="moderate">Moderate (1-3 months)</option>
 									<option value="flexible">Flexible (more than 3 months)</option>
 								</select>
-								{errorMessages.projectTimeline && <span className='text-red-500 font-light text-sm validate'>{errorMessages.projectTimeline}</span>}
+								{errorMessages.projectTimeline && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.projectTimeline}</span>}
 							</div>
 							<div >
 								<select
@@ -485,7 +485,7 @@ function page() {
 									<option value="5k-10k">$5000 - $10000</option>
 									<option value="more10k">More than $10000</option>
 								</select>
-								{errorMessages.projectBudget && <span className='text-red-500 font-light text-sm validate'>{errorMessages.projectBudget}</span>}
+								{errorMessages.projectBudget && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.projectBudget}</span>}
 							</div>
 						</div>
 							
@@ -502,7 +502,7 @@ function page() {
 									placeholder="Please tell us a bit about what you are looking for (optional)"
 									
 								/>
-								{errorMessages.message && <span className='text-red-500 font-light text-sm validate'>{errorMessages.message}</span>}
+								{errorMessages.message && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.message}</span>}
 							</div>
 							<div >
 								<h2 className="text-base font-semibold leading-7 text-white">Upload Files</h2>
@@ -513,7 +513,7 @@ function page() {
 											<label htmlFor="file-upload" className="rounded-md bg-white px-3 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"> Requirement document</label>
 											<span className="ml-3 text-gray-600">or drag and drop</span>
 										</div>
-										{errorMessages.file && <span className='text-red-500 font-light text-sm validate'>{errorMessages.file}</span>}
+										{errorMessages.file && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.file}</span>}
 									</div>
 									<p className="mt-2 text-xs leading-5 text-gray-600">Only PDF and Docx files are allowed</p>
 									{Formdata.file && (
@@ -522,12 +522,14 @@ function page() {
 								</div>
 							</div>
 							
-							<button
-								type="submit" ref={btnRef}
-								className="text-black bg-transparent hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center border-[0.1px] border-gray-800 hover:text-white hover:border-white mt-6 "
-							>
-								{isSubmitting ? 'Submitting...' : 'Submit'}
-							</button>
+							<div className='text-right'>
+								<button
+									type="submit" ref={btnRef} disabled={isSubmitting}
+									className={` text-black bg-transparent hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center border-[0.1px] border-gray-800 hover:text-white hover:border-white mt-6 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} `}
+								>
+									{isSubmitting ? 'Submitting...' : 'Submit'}
+								</button>
+							</div>
 				</form>
 			</div>
 		</section>

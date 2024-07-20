@@ -12,6 +12,7 @@ import axios from 'axios';
 const MapContainer = () => {
 
   const [count, setCount] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const btnRef = useRef(null);
   const [Formdata, setFormdata] = useState({
@@ -188,7 +189,7 @@ const MapContainer = () => {
           return;
         }
     
-    
+        setIsSubmitting(true);
         const FormdataToSend = new FormData()
     
         FormdataToSend.append('name', Formdata.name);
@@ -215,13 +216,16 @@ const MapContainer = () => {
         } catch (error) {
           console.error('Error:', error);
           SweetAlert('Error', error.response?.data?.message || 'Form not submitted', 'error');
+        }finally{
+          setIsSubmitting(false);
         }
       };
 
   const [loading, setLoading] = useState(true);
   
   
-  const apiKey = 'AIzaSyB5epiSWC9Z6HiRNpuzfq_mEXNrBZ7r05I'; // Replace with your Google Maps API key
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  console.log(apiKey)
   const address = 'Dzone Technologies,C3XX+85C, Ashrafabad, Faisalabad'; // Replace with the desired location
 
   useEffect(() => {
@@ -279,7 +283,7 @@ const MapContainer = () => {
                   className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Your name*"
                 />
-                {errorMessages.name && <span className='text-red-500 font-light text-sm validate'>{errorMessages.name}</span>}
+                {errorMessages.name && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.name}</span>}
             </div>
             <div className="mb-4">
               <input
@@ -292,7 +296,7 @@ const MapContainer = () => {
                   placeholder="City*"
                   
                 />
-                {errorMessages.city && <span className='text-red-500 font-light text-sm validate'>{errorMessages.city}</span>}
+                {errorMessages.city && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.city}</span>}
             </div>
             <div className="mb-4">
               <input
@@ -305,7 +309,7 @@ const MapContainer = () => {
                   placeholder="Email*"
                   
                 />
-                {errorMessages.email && <span className='text-red-500 font-light text-sm validate'>{errorMessages.email}</span>}
+                {errorMessages.email && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.email}</span>}
             </div>
             <div className="mb-4">
               <input
@@ -316,7 +320,7 @@ const MapContainer = () => {
                   name='number'
                   className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent border placeholder-gray-400 dark:text-white  focus:border-blue-500 border-gray-600`}
                   placeholder="Contact no.*"/>
-                  {errorMessages.number && <span className='text-red-500 font-light text-sm validate'>{errorMessages.number}</span>}
+                  {errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
             </div>
             <div className="mb-4">
                 <p className='font-light text-gray-700 text-sm flex justify-end'>{count}/200</p>
@@ -331,14 +335,19 @@ const MapContainer = () => {
                     placeholder="Please tell us a bit about what you are looking for*"
                     
                   />
-                  {errorMessages.message && <span className='text-red-500 font-light text-sm validate'>{errorMessages.message}</span>}
+                  {errorMessages.message && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.message}</span>}
             </div>
+            <div className="text-right">
               <button
-              type="submit" ref={btnRef}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="submit"
+                ref={btnRef}
+                disabled={isSubmitting}
+                name="button"
+                className={`text-white font-medium rounded-lg text-sm px-5 py-2.5 transition-colors duration-300 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-indigo-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'}`}
               >
-              Submit
-            </button>
+                {isSubmitting ? 'Submitting...' : 'Submit'}
+              </button>
+            </div>
           </form>
         </div>
 
