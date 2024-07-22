@@ -36,7 +36,6 @@ const MapContainer = () => {
       const { name, email, number, city, message } = Formdata;
       const nameRegex = /^[a-zA-Z\s]*$/;
       const cityRegex = /^[a-zA-Z\s]*$/;
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     
       let valid = true;
     
@@ -61,12 +60,9 @@ const MapContainer = () => {
       if (email==="") {
         setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
         valid = false;
-      } else if (!emailRegex.test(email)) {
-        setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
-        valid = false;
-      }
+      } 
     
-      if (number.length == "") {
+      if (number== "") {
         setErrorMessages(prevState => ({ ...prevState, number: 'Enter mobile numbers' }));
         valid = false;
       }
@@ -83,8 +79,8 @@ const MapContainer = () => {
       {
         setErrorMessages(prevState => ({ ...prevState, message: 'Message is required' }));
         valid = false;
-      }else if (message.split(/\s+/).length > 200) {
-        setErrorMessages(prevState => ({ ...prevState, message: 'Message should not exceed 200 words' }));
+      }else if (message.split(/\s+/).length > 250) {
+        setErrorMessages(prevState => ({ ...prevState, message: 'Message should not exceed 250 words' }));
         valid = false;
       }
     
@@ -124,10 +120,6 @@ const MapContainer = () => {
           if (value.trim() === '') 
           {
             setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
-          }
-          else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value)) 
-          {
-            setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
           } 
           else 
           {
@@ -158,8 +150,8 @@ const MapContainer = () => {
           {
             setErrorMessages(prevState => ({ ...prevState, message: 'Message is required' }));
           } 
-          else if(wordCount > 200) {
-            setErrorMessages(prevState => ({ ...prevState, message: 'You have reached the word limit of 200 words.' }));
+          else if(wordCount > 250) {
+            setErrorMessages(prevState => ({ ...prevState, message: 'You have reached the word limit of 250 words.' }));
           }
           else 
           {
@@ -179,7 +171,7 @@ const MapContainer = () => {
           Formdata.city === '' &&
           Formdata.message === '' 
           ) {
-            SweetAlert('Validation Error', 'Complete all the required fields', 'error');
+
             validateForm()
             return;
         }
@@ -201,19 +193,26 @@ const MapContainer = () => {
         
         try {
           console.log("Data sent: ", FormdataToSend);
-          await axios.post('/api/contact', FormdataToSend);
+          const response = await axios.post('/api/contact', FormdataToSend);
           btnRef.current.classList.add('disable');
 
-          SweetAlert('Success', 'File uploaded successfully!', 'success');
-          setCount(0)
-          setFormdata({
-            name: '',
-            email: '',
-            number: '',
-            city: '',
-            message: '',
-           
-          });
+          if(response.data.statusCode == 200)
+          {
+            SweetAlert('Success', response.data.message, 'success');
+            setCount(0)
+            setFormdata({
+              name: '',
+              email: '',
+              number: '',
+              city: '',
+              message: '',
+            
+            });
+          }
+          else{
+            SweetAlert('Error', response.data.message, 'error');
+          }
+          
         } catch (error) {
           console.error('Error:', error);
           SweetAlert('Error', error.response?.data?.message || 'Form not submitted', 'error');
@@ -318,13 +317,13 @@ const MapContainer = () => {
                 id="number"
                 value={Formdata.number}
                 onChange={(value) => handleChange('number', value)} // Pass value directly
-                className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-transparent placeholder-gray-400 dark:text-white focus:border-blue-500 border border-gray-600 custom-phone-input`}
+                className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-[2px] bg-transparent placeholder-gray-400 dark:text-white focus:border-blue-500 border border-gray-600 custom-phone-input`}
                 
                 placeholder="Contact no.*"/>
                 {errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
             </div>
             <div className="mb-4">
-                <p className='font-light text-gray-700 text-sm flex justify-end'>{count}/200</p>
+                <p className='font-light text-gray-700 text-sm flex justify-end'>{count}/250</p>
                 <textarea
                     id="message"
                     value={Formdata.message}

@@ -29,18 +29,18 @@ export async function POST(req, res)
 		  });
 	  
 		const data = await newContact.save();
+		
 		if(data)
 		{
-			return NextResponse.json({ statusCode: 200, message: 'Data saved successfully', data: proc });
+			return NextResponse.json({ statusCode: 200, message: 'Your request is submitted successfully.', data: data });
 		}
 		else{
-			return NextResponse.json({ statusCode: 500, message: 'Your Request has not been submitted. Try again later!'});
+			return NextResponse.json({ statusCode: 500, message: 'Submission failed. Please try again later.'});
 		}
-
 	}
 	catch(error)
 	{
-		return NextResponse.json({ statusCode: 500, message: 'An error occurred', data: error.message });
+		return NextResponse.json({ statusCode: 500, message: 'Submission failed. Please try again later.', data: error.message });
 	}
 }
 

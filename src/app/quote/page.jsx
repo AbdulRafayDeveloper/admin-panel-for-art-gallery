@@ -7,6 +7,8 @@ import { useEffect,useState,useRef } from 'react'
 import SweetAlert from '../components/alert/SweetAlert'
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function page() {
 
@@ -43,7 +45,6 @@ function page() {
 		const { name, email, number, city, projectName, projectCategory, projectTimeline, projectBudget, file, message } = Formdata;
 		const nameRegex = /^[a-zA-Z\s]*$/;
 		const cityRegex = /^[a-zA-Z\s]*$/;
-		const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 	
 		let valid = true;
 	
@@ -72,11 +73,9 @@ function page() {
 		if (email==="") {
 		  setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
 		  valid = false;
-		} else if (!emailRegex.test(email)) {
-		  setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
-		  valid = false;
 		}
 	
+		
 		if (city==="") {
 		  setErrorMessages(prevState => ({ ...prevState, city: 'City is required' }));
 		  valid = false;
@@ -120,8 +119,8 @@ function page() {
 		  valid = false;
 		}
 
-		if (message.split(/\s+/).length > 200) {
-		  setErrorMessages(prevState => ({ ...prevState, message: 'Message should not exceed 200 words' }));
+		if (message.split(/\s+/).length > 250) {
+		  setErrorMessages(prevState => ({ ...prevState, message: 'Message should not exceed 250 words' }));
 		  valid = false;
 		}
 	
@@ -131,12 +130,19 @@ function page() {
 
 	  const handleFileChange = (e) => {
 		const file = e.target.files[0];
-		const allowedFormats = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+		const allowedFormats = [
+			'application/pdf',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+			'application/vnd.ms-excel', 
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation', 
+			'application/vnd.ms-powerpoint' 
+		];
 		
 		if (!allowedFormats.includes(file.type)) {
 		  setErrorMessages((prevErrors) => ({
 			...prevErrors,
-			file: 'File format must be PDF or DOCX',
+			file: 'File format must be PDF, DOCX, XLSX or PPTX',
 		  }));
 		  setFormdata((prevData) => ({
 			...prevData,
@@ -157,7 +163,6 @@ function page() {
 	  const handleChange = (name, value) => {
 		setFormdata({ ...Formdata, [name]: value });
 	  
-		// Validation checks and updating error messages accordingly
 		if (name === 'name') {
 		  if (value.trim() === '') {
 			setErrorMessages(prevState => ({ ...prevState, name: 'Name is required' }));
@@ -169,8 +174,6 @@ function page() {
 		} else if (name === 'email') {
 		  if (value.trim() === '') {
 			setErrorMessages(prevState => ({ ...prevState, email: 'Email is required' }));
-		  } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value)) {
-			setErrorMessages(prevState => ({ ...prevState, email: 'Email should be a valid Gmail address' }));
 		  } else {
 			setErrorMessages(prevState => ({ ...prevState, email: '' }));
 		  }
@@ -212,8 +215,8 @@ function page() {
 			  const words = value.trim().split(/\s+/).filter(Boolean);
 			  const wordCount = words.length;
 			  
-			  if(wordCount > 200) {
-				setErrorMessages(prevState => ({ ...prevState, message: 'You have reached the word limit of 200 words.' }));
+			  if(wordCount > 250) {
+				setErrorMessages(prevState => ({ ...prevState, message: 'You have reached the word limit of 250 words.' }));
 			  }
 			  else 
 			  {
@@ -238,29 +241,15 @@ function page() {
 			Formdata.projectBudget === '' &&
 			Formdata.file === null
 		  ) {
-			SweetAlert('Validation Error', 'Complete all the required fields', 'error');
 			validateForm()
 			return;
-		  }
-		
-		  // Validate form fields
-		  if (!validateForm()) {
+		}
+
+		if (!validateForm()) {
 			SweetAlert('Validation Error', 'Enter valid values', 'error')
 			return;
-		  }
+		}
 		  setIsSubmitting(true);
-		/*const FormdataToSend = {
-			name: Formdata.name,
-			email: Formdata.email,
-			number: Formdata.number,
-			city: Formdata.city,
-			projname: Formdata.projectName,
-			cat: Formdata.projectCategory,
-			timeline: Formdata.projectTimeline,
-			budget: Formdata.projectBudget,
-			description: Formdata.message,
-			file: Formdata.file,
-		  };*/
 
 		const FormdataToSend = new FormData()
 
@@ -277,49 +266,40 @@ function page() {
 		
 		try {
 		  console.log("Data sent: ", FormdataToSend);
-		  await axios.post('/api/customer', FormdataToSend, {
+		  const response = await axios.post('/api/customer', FormdataToSend, {
 			headers: {
 			  'Content-Type': 'multipart/form-data'
 			}
 		  });
 		  btnRef.current.classList.add('disable');
-		  SweetAlert('Success', 'File uploaded successfully!', 'success');
-		  setFormdata({
-			name: '',
-			email: '',
-			number: '',
-			city: '',
-			projectName: '',
-			projectCategory: '',
-			projectTimeline: '',
-			projectBudget: '',
-			message: '',
-			file: null
-		  });
-		  setCount(0)
+		  if(response.data.statusCode == 200){
+			SweetAlert('Success', response.data.message, 'success');
+			setFormdata({
+				name: '',
+				email: '',
+				number: '',
+				city: '',
+				projectName: '',
+				projectCategory: '',
+				projectTimeline: '',
+				projectBudget: '',
+				message: '',
+				file: null
+			  });
+			setCount(0)
+		  }
+		  if(response.data.statusCode == 500)
+		  {
+			SweetAlert('Error', response.data.message, 'error');
+		  }
+		  
 		} catch (error) {
 		  console.error('Error:', error);
-		  SweetAlert('Error', error.response?.data?.message || 'File upload failed', 'error');
+		  SweetAlert('Error', response.data.message, 'error');
 		}finally{
 			setIsSubmitting(false);
 		}
 	  };
-
-	/*useEffect(() => {
-		const fetchData = async () => {
-		  try {
-			console.log('api hit 1')
-			const response = await axios.get('/api/customer');
-			console.log('api hit 2') 
-			console.log(response.data);
-		  } catch (error) {
-			console.error('Error fetching data:', error);
-		  }
-		};
-	
-		fetchData();
-	  }, []);*/
-
 
   return (
 	<div>
@@ -400,7 +380,7 @@ function page() {
 								value={Formdata.number}
 								onChange={(value) => handleChange('number', value)}
 								name='number'
-								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								className="text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-[2px] bg-transparent border-gray-500 border-[0.5px] dark:placeholder-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 								placeholder="Contact no. (optional)"
 							/>
 							{errorMessages.number && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.number}</span>}
@@ -480,7 +460,7 @@ function page() {
 						</div>
 							
 						<div className='mt-6'>
-								<p className='font-light text-gray-700 text-sm flex justify-end'>{count}/200</p>
+								<p className='font-light text-gray-700 text-sm flex justify-end'>{count}/250</p>
 								<textarea
 									id="message"
 									value={Formdata.message}
@@ -499,13 +479,13 @@ function page() {
 								<div className="mt-6">
 									<div className="mt-2 flex items-center gap-x-3">
 										<div className="relative">
-											<input id="file-upload" name="file" type="file" accept=".pdf,.docx" className="sr-only" onChange={handleFileChange}></input>
+											<input id="file-upload" name="file" type="file" accept=".pdf,.docx,.xlsx,.pptx" className="sr-only" onChange={handleFileChange}></input>
 											<label htmlFor="file-upload" className="rounded-md bg-white px-3 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer"> Requirement document</label>
 											<span className="ml-3 text-gray-600">or drag and drop</span>
 										</div>
 										{errorMessages.file && <span className='text-red-500 font-bold text-xs validate'>{errorMessages.file}</span>}
 									</div>
-									<p className="mt-2 text-xs leading-5 text-gray-600">Only PDF and Docx files are allowed</p>
+									<p className="mt-2 text-xs leading-5 text-gray-600">Only PDF,Docx,XLSX and PPTX Files are allowed</p>
 									{Formdata.file && (
 										<p className="mt-2 text-xs leading-5 text-gray-600">Selected file: {Formdata.file.name}</p>
 									)}

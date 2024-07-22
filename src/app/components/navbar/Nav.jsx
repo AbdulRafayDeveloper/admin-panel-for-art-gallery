@@ -61,11 +61,19 @@ const Nav = () => {
     <nav className={`sticky top-0 z-10 transition-all duration-300 ease-in-out ${isNavScrolled ? 'bg-white text-gray-900 font-medium shadow-md' : 'bg-transparent text-white bg-opacity-10'}`} style={{ visibility: isNavVisible ? 'visible' : 'hidden', opacity: isNavVisible ? 1 : 0 }}>
       <div className="max-w-7xl mx-auto px-4 bg-none">
         <div className="flex items-center justify-between h-16 bg-none relative ">
-        <img
-          src="/assets/pictures/D.png" // Replace with your image path
-          alt="Logo"
-          className="w-11 h-11 object-cover rounded-full"
-        />
+        {isNavScrolled ? (
+          <img
+            src="/assets/pictures/cy.svg"
+            alt="Scrolled Logo"
+            className="w-36 h-36 object-cover"
+          />
+        ) : (
+          <img
+            src="/assets/pictures/cyverix.svg"
+            alt="Logo"
+            className="w-36 h-36 object-cover"
+          />
+        )}
           <div className="hidden md:flex space-x-8">
             <NavItem label="Home" url="/" isSelected={selectedNavItem === "Home"} onSelect={handleNavItemSelect} />
             <DropdownMenu label="Services" items={servicesItems} isSelected={selectedNavItem === "Services"} onSelect={handleNavItemSelect} />

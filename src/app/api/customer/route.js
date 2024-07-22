@@ -15,23 +15,6 @@ export const config = {
 			},
   };
 
-/*export async function GET(req)
-{
-	try{
-		console.log("enter 1")
-		const data = await Contact.find()
-		const data2 = await Customer.find()
-		console.log("enter 2")
-		console.log(data)
-		console.log(data2)
-		console.log("enter 3")
-		return NextResponse.json(data)
-	}catch(error)
-	{
-		return NextResponse.json(error)
-	}
-}*/
-
 export async function POST(req, res) {
 	try {
 		console.log("Post 1");
@@ -68,7 +51,7 @@ export async function POST(req, res) {
 			console.log("File successfully saved:", filePath);
 		} catch (error) {
 			console.error("File not found after writing:", filePath);
-			return NextResponse.json({ statusCode: 500, message: 'File could not be verified after writing' });
+			return NextResponse.json({ statusCode: 500, message: 'Your file is not uploaded properly. Please try again!' });
 		}
 
 		console.log("Post 2");
@@ -97,13 +80,13 @@ export async function POST(req, res) {
 		const data = await customer(proc); 
 
 		if(data){
-			return NextResponse.json({ statusCode: 200, message: 'Data saved successfully', data: proc });
+			return NextResponse.json({ statusCode: 200, message: 'Your request is submitted successfully.', data: proc });
 		}
 		else{
-			return NextResponse.json({ statusCode: 500, message: 'Your Request has not been submitted. Try again later!'});
+			return NextResponse.json({ statusCode: 500, message: 'Submission failed. Please try again later.'});
 		}
 	} catch (error) {
 		console.error("Error in POST handler:", error);
-		return NextResponse.json({ statusCode: 500, message: 'An error occurred', data: error.message });
+		return NextResponse.json({ statusCode: 500, message: 'Submission failed. Please try again later.', data: error.message });
 	}
 }

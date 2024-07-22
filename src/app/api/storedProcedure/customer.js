@@ -22,10 +22,10 @@ export async function customer(proc){
 			file: proc.file
 		})
 
-		console.log(proc.file)
+		return (data1 , data2)
 
 	}catch(error)
 	{
-		console.log(error)
+		return 
 	}
 }
