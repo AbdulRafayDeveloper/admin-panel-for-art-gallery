@@ -5,7 +5,9 @@ const contactModel = new mongoose.Schema({
 	email: String,
 	number: String,
 	city: String,
-	description: String
-},{ timestamps: true })
+	country:String,
+	role:String,
+	times: { type: Number, default: 1, required:true }
+})
 
 export const Contact = mongoose.models.contacts || mongoose.model('contacts', contactModel )

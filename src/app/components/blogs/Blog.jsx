@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function Blog({ title, date, readTime, details, image }) {
   return (
@@ -16,26 +16,35 @@ function Blog({ title, date, readTime, details, image }) {
         <section className="prose lg:prose-xl">
           {Object.keys(details).map((sectionKey, index) => (
             <div key={index} className="mb-12">
-              <h2 className="text-2xl font-light text-indigo-700 mb-4">{sectionKey}</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">{details[sectionKey]}</p>
+              <h2 className="text-2xl font-light text-indigo-700 mb-4">
+                {sectionKey}
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                {details[sectionKey]}
+              </p>
             </div>
           ))}
 
           {image && (
             <figure className="my-6">
-              <img className="w-full h-auto rounded-lg" src={image.src} alt={image.alt} />
+              <img
+                className="w-full h-auto rounded-lg"
+                src={image.src}
+                alt={image.alt}
+              />
               {image.caption && (
-                <figcaption className="text-sm text-gray-500 mt-2">{image.caption}</figcaption>
+                <figcaption className="text-sm text-gray-500 mt-2">
+                  {image.caption}
+                </figcaption>
               )}
             </figure>
           )}
-
         </section>
 
         <footer className="mt-8 text-sm text-gray-600">
           <p>
-            Thank you for reading! If you found this blog post helpful, feel free to share it with
-            your friends and colleagues.
+            Thank you for reading! If you found this blog post helpful, feel
+            free to share it with your friends and colleagues.
           </p>
         </footer>
       </article>

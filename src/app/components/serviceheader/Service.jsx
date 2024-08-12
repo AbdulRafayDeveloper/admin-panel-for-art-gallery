@@ -1,6 +1,6 @@
-'use client'
-import React, { useState } from 'react';
-import Nav from '../navbar/Nav';
+"use client";
+import React, { useState } from "react";
+import Nav from "../navbar/Nav";
 
 function Service({ videoSrc, title, subtitle }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,11 +21,12 @@ function Service({ videoSrc, title, subtitle }) {
             muted
           />
         </div>
-        <div className="absolute inset-0 bg-gray-500 opacity-10 z-10"></div> {/* Semi-transparent overlay */}
+        <div className="absolute inset-0 bg-gray-500 opacity-10 z-10"></div>{" "}
+        {/* Semi-transparent overlay */}
         <div className="relative z-20 h-screen">
           {/* Navigation component (assuming Nav is another component) */}
           {/* Replace Nav with your actual navigation component */}
-          <Nav/>
+          <Nav />
           <div className="flex flex-col items-start justify-center h-full px-12">
             <h1 className="text-white text-5xl font-semibold m-0">{title}</h1>
             <p className="text-white text-3xl font-light">{subtitle}</p>

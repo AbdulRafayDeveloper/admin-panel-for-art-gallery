@@ -37,7 +37,7 @@ body {
   height: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(13deg, #7bcfeb 14%, #e685d3 64%);
+  background: rgb(226, 234, 243);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -115,4 +115,12 @@ body {
   width:0 !important;
   padding: 0 !important;
   border-radius: 0 !important;
+}
+
+.description-cell {
+  cursor: pointer;
+  max-width: 50px; /* Adjust based on your needs */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
