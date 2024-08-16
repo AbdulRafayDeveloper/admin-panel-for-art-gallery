@@ -1,22 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import axios from "axios";
 import Sidebar from "../../components/sidebar/Sidebarr";
 import Header from "../../components/header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import SweetAlert from "@/app/components/alert/SweetAlert";
+import Cookie from "js-cookie";
 
 function Page({ params }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
   const [newData, setnewData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleem, setModalVisibleem] = useState(false);
   const [modalDescription, setModalDescription] = useState("");
+  const [employees, setEmployees] = useState([]);
+  const [projectid, setid] = useState("");
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
   console.log("id asked for at frontend:", params);
 
   useEffect(() => {
@@ -31,6 +35,49 @@ function Page({ params }) {
     fetchData();
   }, []);
 
+  const Assign = async () => {
+    try {
+      const token = Cookies.get("authToken");
+      const response = await axios.get("../../../api/employee", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Employees data: ", response.data.data);
+      setEmployees(response.data.data);
+      response.data.data.map((item) => console.log(item.picture));
+    } catch (error) {
+      console.log("Api not called");
+    }
+  };
+
+  const handleCheckboxChange = (employeeId) => {
+    setSelectedEmployees((prevSelected) =>
+      prevSelected.includes(employeeId)
+        ? prevSelected.filter((id) => id !== employeeId)
+        : [...prevSelected, employeeId]
+    );
+  };
+
+  const handleAssign = async () => {
+    const obj = {
+      project_id: projectid,
+      selected_emp: selectedEmployees,
+    };
+    try {
+      const response = await axios.post("../../../api/assigned_project", obj);
+      if (response.data.status === 200) {
+        window.location.reload();
+      }
+      if (response.data.status === 500) {
+        SweetAlert("Error", response.data.message, "error");
+      }
+    } catch (error) {
+      SweetAlert("Error", "Api not hit", "error");
+    }
+  };
+
+  console.log("Employees:", employees.name);
   const handleDownload = async (filename) => {
     try {
       const response = await axios({
@@ -104,6 +151,16 @@ function Page({ params }) {
   const handleCloseModal = () => {
     setModalVisible(false);
     setModalDescription("");
+  };
+
+  const handleShowModalem = (id) => {
+    console.log("project Id: ", id);
+    setid(id);
+    setModalVisibleem(true);
+  };
+  const handleCloseModalem = () => {
+    setSelectedEmployees("");
+    setModalVisibleem(false);
   };
 
   return (
@@ -181,10 +238,10 @@ function Page({ params }) {
             </nav>
           </header>
 
-          <div className="relative overflow-x-auto pt-12">
-            <div className="min-w-full max-w-screen-lg overflow-x-auto">
+          <div className="relative overflow-x-auto lg:overflow-x-auto pt-12">
+            <div className="min-w-full max-w-screen-lg overflow-x-auto lg:overflow-x-auto ">
               <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 bg-white rounded-lg shadow-lg ">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 overflow-x-auto">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 overflow-x-auto lg:overflow-x-auto ">
                   <tr>
                     <th scope="col" className="px-6 py-3 md:px-6 md:py-3">
                       Name
@@ -244,18 +301,18 @@ function Page({ params }) {
                         </td>
                         <td className="px-6 py-4">
                           <button
-                            className={`text-indigo-500 hover:text-indigo-700 ${
-                              item.status.toLowerCase() === "active"
+                            className={`text-indigo-500 hover:text-indigo-700 ml-1 ${
+                              item.status.toLowerCase() === "pending"
                                 ? ""
                                 : "opacity-50 cursor-not-allowed"
                             }`}
                             onClick={() => {
-                              if (item.status.toLowerCase() === "active") {
-                                // Implement the assign functionality here
-                                // handleAssign(item._id)
+                              if (item.status.toLowerCase() === "pending") {
+                                Assign();
+                                handleShowModalem(item._id);
                               }
                             }}
-                            disabled={item.status.toLowerCase() !== "active"}
+                            disabled={item.status.toLowerCase() !== "pending"}
                           >
                             Assign
                           </button>
@@ -288,6 +345,54 @@ function Page({ params }) {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+      {modalVisibleem && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-12 rounded-lg shadow-lg max-w-lg">
+            <h2 className="text-lg font-semibold mb-4">Select Employees</h2>
+            <ul className="space-y-2">
+              {employees.map((employee) => (
+                <li
+                  key={employee._id}
+                  className="flex items-center space-x-4 p-2 "
+                >
+                  <input
+                    type="checkbox"
+                    id={`employee-${employee._id}`}
+                    checked={selectedEmployees.includes(employee._id)}
+                    onChange={() => handleCheckboxChange(employee._id)}
+                    className="h-5 w-5"
+                  />
+                  <img
+                    src={employee.picture}
+                    alt={employee.name}
+                    className="w-12 h-12 object-cover rounded-full"
+                  />
+                  <label
+                    htmlFor={`employee-${employee._id}`}
+                    className="ml-2 flex-1 text-gray-800"
+                  >
+                    {employee.name} - {employee.position}
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={handleAssign}
+                className="bg-indigo-500 text-white px-4 py-2 rounded m-4"
+              >
+                Assign
+              </button>
+              <button
+                onClick={handleCloseModalem}
+                className="bg-gray-500 text-white px-4 py-2 rounded m-4"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

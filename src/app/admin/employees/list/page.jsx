@@ -144,7 +144,12 @@ function Page() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`../../../api/employee/${id}`);
+      const token = Cookies.get("authToken");
+      const response = await axios.delete(`../../../api/employee/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       SweetAlert("Success", response.data.message, "success");
       window.location.reload();
     } catch (error) {
@@ -395,6 +400,14 @@ function Page() {
                           >
                             Delete
                           </button>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <Link
+                            className="text-indigo-500 hover:text-indigo-700"
+                            href={`../employees/${item._id}`}
+                          >
+                            Update
+                          </Link>
                         </td>
                       </tr>
                     )

@@ -133,11 +133,6 @@ export async function POST(req, res) {
 
 export async function GET(req, res) {
   try {
-    const result = await verifyTokenAndRole(req);
-
-    if (result.status !== 200) {
-      return NextResponse.json(result);
-    }
     const employees = await Employees.find({ role: "employee" });
 
     if (!employees) {

@@ -7,6 +7,7 @@ import path from "path";
 import fs from "fs";
 import { promises as fsPromises } from "fs";
 import { v4 as uuidv4 } from "uuid";
+import { AssignProject } from "@/app/config/Models/assignProject";
 
 export async function GET(req, res) {
   try {
@@ -55,6 +56,10 @@ export async function DELETE(req, res) {
     }
 
     const deletedProject = await Projects.findByIdAndDelete(id);
+    const deletedassign = await AssignProject.findOneAndDelete({
+      assignedProject: deletedProject._id,
+    });
+
     if (!deletedProject) {
       return NextResponse.json({
         status: 404,
@@ -72,7 +77,7 @@ export async function DELETE(req, res) {
     if (updatedCustomer.projectsQuoted === 0) {
       await Customer.findOneAndUpdate(
         { _id: deletedProject.customerid },
-        { $set: { status: "inactive" } },
+        { $set: { status: "closed" } },
         { new: true }
       );
     }

@@ -320,11 +320,9 @@ function Page() {
                         <td className="px-6 py-4">{item.contact.country}</td>
                         <td className="px-6 py-4">{item.contact.city}</td>
                         <td className="px-6 py-4">{item.projectsQuoted}</td>
+                        <td className="px-6 py-4">{item.status}</td>
                         <td className="px-6 py-4">
-                          {item.projectsQuoted === 0 ? "Inactive" : item.status}
-                        </td>
-                        <td className="px-6 py-4">
-                          {item.projectsQuoted === 0 ? (
+                          {item.status === "closed" ? (
                             <span className="text-gray-500 cursor-not-allowed">
                               Quoted
                             </span>
