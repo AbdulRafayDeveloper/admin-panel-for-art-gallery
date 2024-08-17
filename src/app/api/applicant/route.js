@@ -23,10 +23,12 @@ export async function POST(req, res) {
     const city = formData.get("city");
     const country = formData.get("country");
     const jobTitle = formData.get("jobTitle");
-    if (!name || !email || !city || !number) {
+    const gender = formData.get("gender");
+    if (!name || !email || !city || !number || !gender) {
       return NextResponse.json({
         statusCode: 400,
         message: "Required fields are missing.",
+        data: null,
       });
     }
     const filename = file2.name;
@@ -35,11 +37,7 @@ export async function POST(req, res) {
       .replaceAll(" ", "_");
     const extension = filename.substring(filename.lastIndexOf("."));
     const randomName = `${uuidv4()}_${baseName}${extension}`;
-    const filePath = path.join(
-      process.cwd(),
-      "public/requirements",
-      randomName
-    );
+    const filePath = path.join(process.cwd(), "public/cv", randomName);
     await fs.writeFile(filePath, Buffer.from(await file2.arrayBuffer()));
 
     try {
@@ -48,9 +46,10 @@ export async function POST(req, res) {
       return NextResponse.json({
         statusCode: 500,
         message: "Your file is not uploaded properly. Please try again!",
+        data: null,
       });
     }
-    const file = "/requirements/" + randomName;
+    const file = "/cv/" + randomName;
     const newapplicant = new Applicants({
       name,
       email,
@@ -59,6 +58,7 @@ export async function POST(req, res) {
       country,
       file,
       jobTitle,
+      gender,
     });
 
     const data = await newapplicant.save();
@@ -72,7 +72,7 @@ export async function POST(req, res) {
     } else {
       return NextResponse.json({
         statusCode: 500,
-        message: "1. Submission failed. Please try again later.",
+        message: "Submission failed. Please try again later.",
         data: null,
       });
     }
@@ -81,6 +81,26 @@ export async function POST(req, res) {
       statusCode: 500,
       message: "Submission failed. Please try again later.",
       data: error.message,
+    });
+  }
+}
+
+export async function GET(req, res) {
+  try {
+    const applicant = await Applicants.find();
+    if (!applicant) {
+      return NextResponse.json({
+        status: 400,
+        message: "Data not fetched",
+        data: null,
+      });
+    }
+    return NextResponse.json({ status: 200, message: null, data: applicant });
+  } catch (error) {
+    return NextResponse.json({
+      status: 500,
+      message: "Data not Fetched try again later!",
+      data: error,
     });
   }
 }

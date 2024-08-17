@@ -17,6 +17,7 @@ function JobApplicationForm({ jobTitle, onClose }) {
     email: "",
     number: "",
     city: "",
+    gender: "",
     file: null,
   });
 
@@ -25,11 +26,12 @@ function JobApplicationForm({ jobTitle, onClose }) {
     email: "",
     number: "",
     city: "",
+    gender: "",
     file: null,
   });
 
   const validateForm = () => {
-    const { name, email, number, city, file } = Formdata;
+    const { name, email, number, city, file, gender } = Formdata;
     const nameRegex = /^[a-zA-Z\s]*$/;
     const cityRegex = /^[a-zA-Z\s]*$/;
 
@@ -40,6 +42,7 @@ function JobApplicationForm({ jobTitle, onClose }) {
       email: "",
       number: "",
       city: "",
+      gender: "",
       file: null,
     });
 
@@ -53,6 +56,13 @@ function JobApplicationForm({ jobTitle, onClose }) {
       setErrorMessages((prevState) => ({
         ...prevState,
         name: "Name should not contain numbers or special characters",
+      }));
+      valid = false;
+    }
+    if (gender === "") {
+      setErrorMessages((prevState) => ({
+        ...prevState,
+        gender: "Gender is required",
       }));
       valid = false;
     }
@@ -162,6 +172,15 @@ function JobApplicationForm({ jobTitle, onClose }) {
       } else {
         setErrorMessages((prevState) => ({ ...prevState, email: "" }));
       }
+    } else if (name === "gender") {
+      if (value.trim() === "") {
+        setErrorMessages((prevState) => ({
+          ...prevState,
+          gender: "Gender is required",
+        }));
+      } else {
+        setErrorMessages((prevState) => ({ ...prevState, gender: "" }));
+      }
     } else if (name === "city") {
       if (value.trim() === "") {
         setErrorMessages((prevState) => ({
@@ -187,7 +206,8 @@ function JobApplicationForm({ jobTitle, onClose }) {
       Formdata.email === "" &&
       Formdata.number === "" &&
       Formdata.city === "" &&
-      Formdata.file === null
+      Formdata.file === null &&
+      Formdata.gender === ""
     ) {
       validateForm();
       return;
@@ -208,6 +228,7 @@ function JobApplicationForm({ jobTitle, onClose }) {
     FormdataToSend.append("file", Formdata.file);
     FormdataToSend.append("country", country);
     FormdataToSend.append("jobTitle", jobTitle);
+    FormdataToSend.append("gender", Formdata.gender);
 
     try {
       const response = await axios.post("/api/applicant", FormdataToSend, {
@@ -226,6 +247,7 @@ function JobApplicationForm({ jobTitle, onClose }) {
           city: "",
           file: null,
           jobTitle: "",
+          gender: null,
         });
       }
       if (response.data.statusCode == 500) {
@@ -311,6 +333,48 @@ function JobApplicationForm({ jobTitle, onClose }) {
               {errorMessages.number}
             </span>
           )}
+        </div>
+        <div className="col-span-2">
+          <fieldset className="flex flex-col gap-2">
+            <legend className="text-sm font-light leading-7 text-gray-700 mb-2">
+              Gender
+            </legend>
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked={Formdata.gender === "male"}
+                  onChange={(e) => handleChange("gender", e.target.value)}
+                  className="mr-2"
+                />
+                <label htmlFor="male" className="text-gray-900 text-sm">
+                  Male
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={Formdata.gender === "female"}
+                  onChange={(e) => handleChange("gender", e.target.value)}
+                  className="mr-2"
+                />
+                <label htmlFor="female" className="text-gray-900 text-sm">
+                  Female
+                </label>
+              </div>
+            </div>
+            {errorMessages.gender && (
+              <span className="text-red-500 font-bold text-xs validate mt-2">
+                {errorMessages.gender}
+              </span>
+            )}
+          </fieldset>
         </div>
         <div className="mb-4">
           <label className="block mb-1">Resume (PDF or Word)</label>
