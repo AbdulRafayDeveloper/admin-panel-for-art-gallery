@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { NextResponse } from "next/server";
 import { Employees } from "../config/Models/employees";
 
 const JWT_SECRET = "SecurityInsure";
@@ -18,7 +17,6 @@ async function verifyTokenAndRole(req) {
   let decoded;
   try {
     decoded = jwt.verify(token, JWT_SECRET);
-    console.log("Decoded Token:", decoded);
   } catch (err) {
     if (err.name === "TokenExpiredError") {
       return {

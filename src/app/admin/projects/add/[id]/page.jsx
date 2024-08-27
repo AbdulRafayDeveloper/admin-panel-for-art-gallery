@@ -9,8 +9,6 @@ import { getCountryCallingCode, getName } from "country-list";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import Link from "next/link";
-//import Sidebar from '../../components/sidebar/Sidebarr'
-//import Header from '../../components/header/Header'
 import Sidebar from "@/app/admin/components/sidebar/Sidebarr";
 import Header from "@/app/admin/components/header/Header";
 

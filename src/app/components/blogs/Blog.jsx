@@ -1,6 +1,9 @@
 import React from "react";
+import DOMPurify from "dompurify";
 
 function Blog({ title, date, readTime, details, image }) {
+  const sanitizedDetails = DOMPurify.sanitize(details);
+
   return (
     <section className="bg-gray-100 min-h-screen flex justify-center items-center p-8 pt-12">
       <article className="max-w-3xl mx-auto py-8">
@@ -9,21 +12,15 @@ function Blog({ title, date, readTime, details, image }) {
           <div className="flex items-center space-x-4 text-gray-600">
             <span>Published on {date}</span>
             <span>•</span>
-            <span>{readTime} min read</span>
+            <span>{readTime}</span>
           </div>
         </header>
 
         <section className="prose lg:prose-xl">
-          {Object.keys(details).map((sectionKey, index) => (
-            <div key={index} className="mb-12">
-              <h2 className="text-2xl font-light text-indigo-700 mb-4">
-                {sectionKey}
-              </h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                {details[sectionKey]}
-              </p>
-            </div>
-          ))}
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizedDetails }}
+            className="text-gray-700 leading-relaxed"
+          />
 
           {image && (
             <figure className="my-6">

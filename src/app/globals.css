@@ -125,5 +125,13 @@ body {
   white-space: nowrap;
 }
 
+/* styles/globals.css or your CSS file */
+.dropzone {
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
 
 

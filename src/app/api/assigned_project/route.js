@@ -1,19 +1,18 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { db } from "@/app/config/db";
 import { Projects } from "@/app/config/Models/project";
 import { Employees } from "@/app/config/Models/employees";
 import { AssignProject } from "@/app/config/Models/assignProject";
 import { Customer } from "@/app/config/Models/customer";
 import path from "path";
 import fs from "fs";
-import { promises as fsPromises } from "fs";
 
 export async function POST(req, res) {
   try {
     const data = await req.json();
     const project = await Projects.findById(data.project_id);
     const assigned = await AssignProject.find({ assignedProject: project._id });
+
     if (assigned.length != 0) {
       const updatedproject = await AssignProject.findOneAndUpdate(
         { assignedProject: project._id },
@@ -24,11 +23,13 @@ export async function POST(req, res) {
         },
         { new: true, runValidators: true }
       );
+
       const project2 = await Projects.findOneAndUpdate(
         { _id: project._id },
         { $set: { status: "Not Started" } },
         { new: true, runValidators: true }
       );
+
       return NextResponse.json({
         status: 200,
         message: "Project assigned",
@@ -42,11 +43,13 @@ export async function POST(req, res) {
         assignedProject: project._id,
         assignedEmp: data.selected_emp,
       });
+
       const project2 = await Projects.findOneAndUpdate(
         { _id: project._id },
         { $set: { status: "Not Started" } },
         { new: true, runValidators: true }
       );
+
       if (!assign) {
         return NextResponse.json({
           status: 500,
@@ -54,6 +57,7 @@ export async function POST(req, res) {
           data: null,
         });
       }
+
       return NextResponse.json({
         status: 200,
         message: "Project assigned",
@@ -80,15 +84,15 @@ export async function GET(req, res) {
         data: null,
       });
     }
+
     const employeeIds = projects.flatMap((project) => project.assignedEmp);
-    console.log(employeeIds);
     const employees = await Employees.find({ _id: { $in: employeeIds } });
-    console.log(employees);
+
     const employeeMap = employees.reduce((acc, employee) => {
       acc[employee._id.toString()] = employee;
       return acc;
     }, {});
-    console.log(employeeMap);
+
     const projectsWithEmployees = projects.map((project) => ({
       ...project.toObject(),
       assignedEmp: project.assignedEmp.map((empId) => ({
@@ -96,7 +100,7 @@ export async function GET(req, res) {
         id: empId, // Ensure the ID is included
       })),
     }));
-    console.log(projectsWithEmployees);
+
     return NextResponse.json({
       status: 200,
       message: null,
@@ -114,9 +118,7 @@ export async function GET(req, res) {
 export async function PUT(req, res) {
   try {
     const data = await req.json();
-    console.log(data);
     const assign = await AssignProject.findById(data.assign);
-    console.log(assign);
     const assignEmpIds = Array.isArray(assign.assignedEmp)
       ? assign.assignedEmp.map((id) => String(id))
       : [];

@@ -7,6 +7,7 @@ import {
   faDiagramProject,
   faCheckToSlot,
   faEnvelopesBulk,
+  faListCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -106,7 +107,7 @@ const Sidebar = ({ isSidebarOpen, handleLogout }) => {
           </li>
           <li>
             <Link
-              href="#"
+              href="/admin/job/list"
               className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group font-light"
             >
               <FontAwesomeIcon

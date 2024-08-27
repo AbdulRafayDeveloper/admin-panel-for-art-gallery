@@ -9,16 +9,7 @@ const assignprojectModel = new mongoose.Schema(
     assignedEmp: [{ type: mongoose.Schema.Types.ObjectId, required: true }],
     status: {
       type: String,
-      enum: [
-        "Not Started",
-        "In Progress",
-        "On Hold",
-        "Completed",
-        "Cancelled",
-        "Delayed",
-        "Pending Review",
-        "Archived",
-      ],
+      enum: ["Not Started", "In Progress", "On Hold", "Completed", "Cancelled"],
       default: "Not Started",
       required: true,
     },

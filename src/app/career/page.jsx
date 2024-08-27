@@ -432,62 +432,32 @@ function JobApplicationForm({ jobTitle, onClose }) {
 }
 
 function Page() {
-  // Example job data with filled descriptions
-  const jobs = [
-    {
-      id: 1,
-      title: "Web Developer",
-      location: "Remote",
-      easyApplyLink: "/apply/web-developer",
-      content: `Join our team as a Remote Web Developer! We're looking for a skilled developer proficient in modern web technologies. You will collaborate with cross-functional teams to design and develop responsive web applications. Experience with front-end frameworks like React and back-end technologies such as Node.js is preferred.`,
-    },
-    {
-      id: 2,
-      title: "Mobile App Developer",
-      location: "Remote",
-      easyApplyLink: "/apply/mobile-app-developer",
-      content: `Are you a Mobile App Developer interested in working remotely? We're seeking a talented developer to create intuitive mobile applications for iOS and Android platforms. Your role will involve designing user interfaces, implementing application features, and ensuring high performance and responsiveness of mobile apps.`,
-    },
-    {
-      id: 3,
-      title: "AI Engineer",
-      location: "Remote",
-      easyApplyLink: "/apply/ai-engineer",
-      content: `We're hiring a Remote AI Engineer to drive innovation in artificial intelligence. You will develop machine learning models, optimize algorithms, and deploy AI solutions that address complex business challenges. Experience in deep learning frameworks such as TensorFlow or PyTorch is essential.`,
-    },
-    {
-      id: 4,
-      title: "Deployment Engineer",
-      location: "Remote",
-      easyApplyLink: "/apply/cloud-deployment-engineer",
-      content: `Seeking a Cloud Deployment Engineer to join our remote team! You will be responsible for designing, deploying, and maintaining cloud infrastructure. Experience with cloud platforms like AWS, Azure, or Google Cloud, along with proficiency in infrastructure-as-code tools such as Terraform or CloudFormation, is required.`,
-    },
-    {
-      id: 5,
-      title: "UX/UI Designer",
-      location: "Remote",
-      easyApplyLink: "/apply/ux-ui-designer",
-      content: `We are looking for a talented UX/UI Designer to create amazing user experiences. The ideal candidate should have an eye for clean and artful design, possess superior UI skills, and be able to translate high-level requirements into interaction flows and artifacts. ... (content truncated for brevity)`,
-    },
-  ];
+  const [jobs, setjobs] = useState([]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const response = await axios.get("../../../api/job_posts");
+        console.log(response.data.data);
+        setjobs(response.data.data);
+      } catch (error) {
+        console.log("api not hit");
+      }
+    };
+    fetchdata();
+  }, []);
 
-  // State for selected job post and form visibility
-  const [selectedJob, setSelectedJob] = useState(null); // Default to null for career introduction
+  const [selectedJob, setSelectedJob] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const sidebarRef = useRef(null);
 
-  // Function to handle job click
   const handleJobClick = (jobId) => {
     setSelectedJob(jobId === selectedJob ? null : jobId);
-    setShowForm(false); // Close form when a new job is selected
+    setShowForm(false);
   };
 
-  // Function to toggle form visibility
   const toggleForm = () => {
     setShowForm(!showForm);
   };
-
-  // Function to toggle sidebar visibility
   const toggleSidebar = () => {
     sidebarRef.current.classList.toggle("-translate-x-full");
   };
@@ -630,7 +600,7 @@ function Page() {
                           {job.title}
                         </h2>
                         <p className="text-gray-600 font-semibold">
-                          {job.location}
+                          Location: {job.location}
                         </p>
                         <div
                           className="text-gray-700"
