@@ -159,20 +159,22 @@ function Page() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen">
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 bg-white">
-        <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        <div className="fixed">
+          <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        </div>
 
-        <main className="flex-1 p-3 pt-4 h-full bg-white overflow-y-auto">
+        <main className="flex-1 p-3 pt-4 h-screen bg-white overflow-y-auto z-1 lg:ml-64 lg:mt-20">
           <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 mt-4 overflow-auto">
               <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <h1 className="text-gray-700 font-medium text-2xl">
                   Employees Overview
                 </h1>
-                <div className="flex items-center lg:order-2 ">
+                <div className="flex items-center lg:order-2 md:order-2 lg:mt-0 justify-center mt-4">
                   <div className="mx-4 px-2 py-1 rounded-lg">
                     <Link className="text-md" href={"../employees/add"}>
                       <FontAwesomeIcon
@@ -229,82 +231,7 @@ function Page() {
             </nav>
           </header>
 
-          <section className="text-gray-700 body-font mb-4">
-            <div className="container px-5 py-6 mx-auto">
-              <div className="flex flex-wrap -m-4 text-center justify-center w-full">
-                {/* Box 1 */}
-                <div className="p-2 md:w-1/4 sm:w-1/2 w-full">
-                  <div className="bg-white shadow-md px-3 py-4 rounded-lg transform transition duration-500 hover:scale-105">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="text-indigo-500 w-8 h-8 mb-2 inline-block"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-                    </svg>
-                    <h2 className="title-font font-medium text-xl text-gray-900">
-                      {totalEmployees}
-                    </h2>
-                    <p className="leading-relaxed text-sm">Total Employees</p>
-                  </div>
-                </div>
-                {/* Box 2 */}
-                <div className="p-2 md:w-1/4 sm:w-1/2 w-full">
-                  <div className="bg-white shadow-md px-3 py-4 rounded-lg transform transition duration-500 hover:scale-105">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="text-indigo-500 w-8 h-8 mb-2 inline-block"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-                    </svg>
-                    <h2 className="title-font font-medium text-xl text-gray-900">
-                      {activeEmployees}
-                    </h2>
-                    <p className="leading-relaxed text-sm">Active Employees</p>
-                  </div>
-                </div>
-                {/* Box 3 */}
-                <div className="p-2 md:w-1/4 sm:w-1/2 w-full">
-                  <div className="bg-white shadow-md px-3 py-4 rounded-lg transform transition duration-500 hover:scale-105">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="text-indigo-500 w-8 h-8 mb-2 inline-block"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                      <circle cx="9" cy="7" r="4"></circle>
-                      <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-                    </svg>
-                    <h2 className="title-font font-medium text-xl text-gray-900">
-                      {inactiveEmployees}
-                    </h2>
-                    <p className="leading-relaxed text-sm">
-                      Inactive Employees
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <div className="relative overflow-x-auto overflow-y-auto">
+          <div className="relative overflow-x-auto overflow-y-auto mt-12">
             <div className="min-w-full max-w-screen-lg overflow-x-auto overflow-y-auto">
               <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 bg-white rounded-lg shadow-lg ">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 overflow-x-auto overflow-y-auto">

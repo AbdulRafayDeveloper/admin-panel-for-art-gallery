@@ -26,7 +26,7 @@ const Header = ({ toggleSidebar, handleLogout }) => {
   };
 
   return (
-    <header className="bg-gray-50 w-full flex flex-col md:flex-row items-center justify-between px-4 py-[18px]">
+    <header className="bg-gray-50 w-full flex flex-col md:flex-row items-center justify-between px-4 py-[18px] lg:fixed z-10">
       <div className="flex-shrink-0">
         <img
           src="/assets/pictures/cy2_copy.png"
@@ -42,7 +42,7 @@ const Header = ({ toggleSidebar, handleLogout }) => {
         <label htmlFor="default-search" className="sr-only">
           Search
         </label>
-        <div className="relative flex items-center w-full">
+        <div className="relative flex items-center justify-center lg:w-full w-[600px]">
           <input
             type="search"
             id="default-search"

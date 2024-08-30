@@ -8,6 +8,7 @@ import {
   faCheckToSlot,
   faEnvelopesBulk,
   faListCheck,
+  faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
@@ -15,12 +16,12 @@ const Sidebar = ({ isSidebarOpen, handleLogout }) => {
   return (
     <aside
       id="default-sidebar"
-      className={`fixed left-0 z-40 w-64 h-screen transition-transform  ${
+      className={`fixed left-0 z-9 w-64 h-screen transition-transform  ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } bg-gray-50 shadow-lg pt-4 mt-10 rounded-tr-md lg:translate-x-0 lg:relative lg:w-64`}
+      } bg-gray-50 shadow-lg pt-4 mt-32 rounded-tr-md lg:translate-x-0 lg:relative lg:w-64 `}
       aria-label="Sidebar"
     >
-      <div className="px-3 py-4 overflow-y-auto h-full">
+      <div className="px-3 py-4  h-full">
         <ul className="space-y-2 font-medium pl-4">
           <li>
             <Link
@@ -117,9 +118,19 @@ const Sidebar = ({ isSidebarOpen, handleLogout }) => {
               <span className="flex-1 ms-3 whitespace-nowrap">Job Posts</span>
             </Link>
           </li>
+          <li>
+            <Link
+              href="/admin/blog_posts/list"
+              className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group font-light"
+            >
+              <FontAwesomeIcon
+                icon={faMessage}
+                className="flex-shrink-0 w-5 h-5 text-gray-400 transition duration-75 group-hover:text-gray-900"
+              />
+              <span className="flex-1 ms-3 whitespace-nowrap">Blog Posts</span>
+            </Link>
+          </li>
         </ul>
-
-        {/* Logout Button inside Sidebar */}
         <div className="mt-auto p-4 lg:hidden">
           <Link
             href="/auth/login"

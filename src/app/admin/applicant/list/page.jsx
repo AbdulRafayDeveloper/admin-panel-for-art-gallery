@@ -97,9 +97,11 @@ function Page() {
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 bg-white">
-        <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        <div className="fixed">
+          <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        </div>
 
-        <main className="flex-1 p-3 pt-4 h-screen bg-white">
+        <main className="flex-1 p-3 pt-4 h-screen bg-white overflow-y-auto z-1 lg:ml-64 lg:mt-20">
           <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 mt-4">
               <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">

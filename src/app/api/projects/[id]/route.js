@@ -165,9 +165,13 @@ export async function POST(req, res) {
 
     const customer = await Customer.findOneAndUpdate(
       { _id: customerid },
-      { $inc: { projectsQuoted: 1 } },
+      {
+        $inc: { projectsQuoted: 1 },
+        $set: { status: "active" },
+      },
       { new: true }
     );
+
     return NextResponse.json({
       status: 200,
       message: "Project added successfully",

@@ -452,14 +452,16 @@ function page() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-white ">
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 w-full bg-white">
-        <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        <div className="fixed">
+          <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
+        </div>
 
-        <main className="flex-1 p-3 pt-4 h-screen  overflow-auto bg-white">
-          <div className="mb-8 ml-20 mt-4">
+        <main className="flex-1 p-3 pt-4 h-screen bg-white overflow-y-auto z-1 lg:ml-64 lg:mt-20 ">
+          <div className="mb-8 lg:ml-20 ml-8 mt-4 ">
             <h1 className="text-gray-700 font-medium text-2xl ">
               Add Employee Data{" "}
             </h1>

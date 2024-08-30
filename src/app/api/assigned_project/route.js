@@ -119,15 +119,19 @@ export async function PUT(req, res) {
   try {
     const data = await req.json();
     const assign = await AssignProject.findById(data.assign);
+
     const assignEmpIds = Array.isArray(assign.assignedEmp)
       ? assign.assignedEmp.map((id) => String(id))
       : [];
+
     const dataEmpIds = Array.isArray(data.employees)
       ? data.employees.map((id) => String(id))
       : [];
+
     const areArraysEqual =
       assignEmpIds.length === dataEmpIds.length &&
       assignEmpIds.every((id) => dataEmpIds.includes(id));
+
     if (!areArraysEqual) {
       await AssignProject.findOneAndUpdate(
         { _id: data.assign },
@@ -135,12 +139,14 @@ export async function PUT(req, res) {
         { new: true, runValidators: true }
       );
     }
+
     if (assign.status !== data.status) {
       await AssignProject.findOneAndUpdate(
         { _id: data.assign },
         { $set: { status: data.status } },
         { new: true, runValidators: true }
       );
+
       if (data.status === "In Progress" || data.status === "On Hold") {
         await Projects.findOneAndUpdate(
           { _id: assign.assignedProject },
@@ -193,8 +199,14 @@ export async function PUT(req, res) {
             });
           }
         }
-        const deletedProject = await Projects.findByIdAndDelete(
-          assignproj.assignedProject
+        const deletedProject = await Projects.findByIdAndUpdate(
+          { _id: assignproj.assignedProject },
+          {
+            $set: {
+              status: "Cancelled",
+            },
+          },
+          { new: true }
         );
         const updatedCustomer = await Customer.findOneAndUpdate(
           { _id: deletedProject.customerid },
