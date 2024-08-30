@@ -176,7 +176,7 @@ function Page() {
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 bg-white">
-        <div className="fixed">
+        <div className="fixed z-50">
           <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
         </div>
 
@@ -185,11 +185,14 @@ function Page() {
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 mt-4">
               <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <h1 className="text-gray-700 font-medium text-2xl">
-                  Assigned Projects Overview
+                  Assigned Projects
                 </h1>
-                <div className="flex items-center lg:order-2 ">
-                  <div className="mx-4 px-2 py-1 rounded-lg">
-                    <button className="text-md" onClick={downloadcsv}>
+                <div className="flex flex-wrap items-center lg:order-2 md:order-2 lg:mt-0 mt-4 w-full lg:w-auto justify-start space-x-2">
+                  <div className="px-1 py-1 rounded-lg">
+                    <button
+                      className="text-md flex items-center"
+                      onClick={downloadcsv}
+                    >
                       <FontAwesomeIcon
                         icon={faArrowDown}
                         className="mr-2 text-indigo-600"
@@ -197,7 +200,7 @@ function Page() {
                       CSV
                     </button>
                   </div>
-                  <form className="max-w-md mx-auto">
+                  <form className="max-w-xs flex-1">
                     <label
                       htmlFor="default-search"
                       className="mb-2 text-sm font-medium sr-only text-white"
@@ -208,7 +211,7 @@ function Page() {
                       <input
                         type="search"
                         id="default-search"
-                        className="block w-full pl-8 mr-2 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 border-[0.5px] border-gray-200 placeholder-gray-400 focus:border-blue-500 py-2"
+                        className="block w-full pl-8 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 border-[0.5px] border-gray-200 placeholder-gray-400 focus:border-blue-500 py-2"
                         placeholder="Search Assigned Project or status"
                         value={searchQuery}
                         onChange={handleSearchChange}

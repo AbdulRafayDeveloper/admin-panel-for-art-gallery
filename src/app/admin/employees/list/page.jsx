@@ -163,19 +163,20 @@ function Page() {
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 bg-white">
-        <div className="fixed">
+        <div className="fixed z-50">
           <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
         </div>
 
-        <main className="flex-1 p-3 pt-4 h-screen bg-white overflow-y-auto z-1 lg:ml-64 lg:mt-20">
+        <main className="flex-1 p-3 pt-4 h-screen bg-white overflow-y-auto lg:ml-64 lg:mt-20">
           <header>
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 mt-4 overflow-auto">
               <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <h1 className="text-gray-700 font-medium text-2xl">
                   Employees Overview
                 </h1>
-                <div className="flex items-center lg:order-2 md:order-2 lg:mt-0 justify-center mt-4">
-                  <div className="mx-4 px-2 py-1 rounded-lg">
+
+                <div className="flex flex-wrap items-center lg:order-2 md:order-2 lg:mt-0 mt-6 w-full lg:w-auto justify-start z-1">
+                  <div className="mx-4 px-1 py-1 rounded-lg ml-0">
                     <Link className="text-md" href={"../employees/add"}>
                       <FontAwesomeIcon
                         icon={faPlus}
@@ -184,7 +185,7 @@ function Page() {
                       Employee
                     </Link>
                   </div>
-                  <div className="mx-4 px-2 py-1 rounded-lg">
+                  <div className="mx-4 px-1 py-1 rounded-lg">
                     <button className="text-md" onClick={downloadcsv}>
                       <FontAwesomeIcon
                         icon={faArrowDown}
@@ -193,7 +194,7 @@ function Page() {
                       CSV
                     </button>
                   </div>
-                  <form className="max-w-md mx-auto">
+                  <form className="max-w-xs mt-2">
                     <label
                       htmlFor="default-search"
                       className="mb-2 text-sm font-medium sr-only text-white"
@@ -231,7 +232,7 @@ function Page() {
             </nav>
           </header>
 
-          <div className="relative overflow-x-auto overflow-y-auto mt-12">
+          <div className="relative overflow-x-auto overflow-y-auto mt-8">
             <div className="min-w-full max-w-screen-lg overflow-x-auto overflow-y-auto">
               <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 bg-white rounded-lg shadow-lg ">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 overflow-x-auto overflow-y-auto">

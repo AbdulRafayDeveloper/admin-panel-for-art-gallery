@@ -168,7 +168,7 @@ function Page({ params }) {
       <Header toggleSidebar={toggleSidebar} handleLogout={handleLogout} />
 
       <div className="flex flex-1 bg-white">
-        <div className="fixed">
+        <div className="fixed z-50">
           <Sidebar isSidebarOpen={isSidebarOpen} handleLogout={handleLogout} />
         </div>
 
@@ -188,8 +188,8 @@ function Page({ params }) {
                   </p>
                 </div>
 
-                <div className="flex items-center lg:order-2 ">
-                  <div className="mx-4 px-2 py-1 rounded-lg">
+                <div className="flex flex-wrap items-center lg:order-2 md:order-2 lg:mt-0 mt-6 w-full lg:w-auto justify-start z-1">
+                  <div className="mx-4 px-1 py-1 rounded-lg ml-0">
                     <Link
                       className="text-md"
                       href={`../projects/add/${params.id}`}
@@ -202,7 +202,7 @@ function Page({ params }) {
                     </Link>
                   </div>
 
-                  <form className="max-w-md mx-auto">
+                  <form className="max-w-xs mt-2">
                     <label
                       htmlFor="default-search"
                       className="mb-2 text-sm font-medium sr-only text-white"

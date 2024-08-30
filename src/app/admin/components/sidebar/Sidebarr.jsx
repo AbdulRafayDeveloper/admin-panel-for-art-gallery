@@ -16,12 +16,12 @@ const Sidebar = ({ isSidebarOpen, handleLogout }) => {
   return (
     <aside
       id="default-sidebar"
-      className={`fixed left-0 z-9 w-64 h-screen transition-transform  ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } bg-gray-50 shadow-lg pt-4 mt-32 rounded-tr-md lg:translate-x-0 lg:relative lg:w-64 `}
+      className={`fixed left-0 w-64 h-screen transition-transform  ${
+        isSidebarOpen ? "translate-x-0 z-10" : "-translate-x-full z-10"
+      } bg-gray-50 shadow-lg pt-4 lg:mt-32 rounded-tr-md lg:translate-x-0 lg:relative lg:w-64 `}
       aria-label="Sidebar"
     >
-      <div className="px-3 py-4  h-full">
+      <div className="px-3 py-4 z-20 h-full">
         <ul className="space-y-2 font-medium pl-4">
           <li>
             <Link

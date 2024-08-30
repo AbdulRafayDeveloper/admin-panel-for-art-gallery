@@ -111,8 +111,8 @@ function Page() {
                   </h1>
                 </div>
 
-                <div className="flex items-center lg:order-2 ">
-                  <form className="max-w-md mx-auto">
+                <div className="flex flex-wrap items-center lg:order-2 md:order-2 lg:mt-0 mt-4 w-full lg:w-auto justify-start ">
+                  <form className="max-w-xs mt-2">
                     <label
                       htmlFor="default-search"
                       className="mb-2 text-sm font-medium sr-only text-white"
